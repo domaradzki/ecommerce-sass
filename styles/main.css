@@ -47,9 +47,9 @@ a {
   animation-fill-mode: both;
 }
 
-.height-screen-helper {
+/* .height-screen-helper {
   height: calc(100vh - 80px);
-}
+} */
 
 /* chart styles */
 .apexcharts-tooltip {
