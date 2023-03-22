@@ -1,20 +1,20 @@
-import { Dropdown } from "flowbite-react";
+import { Dropdown } from 'flowbite-react';
 
 export default function DropDownApps() {
   return (
     <Dropdown
       arrowIcon={false}
-      color="red"
+      color="transparent"
       fullSized={false}
       outline={false}
       pill={false}
       placement="bottom"
       positionInGroup="middle"
-      title="Dropdown notiffication"
+      title="Menu aplikacji"
       trigger="click"
       label={
         <span className="rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:flex">
-          <span className="sr-only">View notifications</span>
+          <span className="sr-only">Widok aplikacji</span>
           {/* <!-- Icon --> */}
           <svg
             className="h-6 w-6"

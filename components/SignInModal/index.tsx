@@ -1,5 +1,10 @@
 import Modal from '@/components/shared/modal';
-// import { signIn } from 'next-auth/react';
+import Logo from '@/components/icons/Logo';
+import { useRouter } from 'next/router';
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
+
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
 import {
   useState,
   Dispatch,
@@ -7,8 +12,8 @@ import {
   useCallback,
   useMemo,
 } from 'react';
-import { LoadingDots, Google } from '@/components/shared/icons';
-import Image from 'next/image';
+import LoadingDots from '@/components/ui/LoadingDots';
+// import { LoadingDots, Google } from '@/components/shared/icons';
 
 const SignInModal = ({
   showSignInModal,
@@ -17,51 +22,46 @@ const SignInModal = ({
   showSignInModal: boolean;
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [signInClicked, setSignInClicked] = useState(false);
+  const router = useRouter();
+  const user = useUser();
+  const supabaseClient = useSupabaseClient();
 
+  console.log('user', user);
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
-      <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
-        <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
-          <a href="https://precedent.dev">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              className="h-10 w-10 rounded-full"
-              width={20}
-              height={20}
-            />
-          </a>
-          <h3 className="font-display text-2xl font-bold">Zaloguj</h3>
-          <p className="text-sm text-gray-500">
-            Email i zdjęcie będzie zapisane
-          </p>
+      {!user ? (
+        <div className="height-screen-helper flex justify-center rounded-xl bg-black p-8">
+          <div className="m-auto flex w-80 max-w-lg flex-col justify-between p-3 ">
+            <div className="flex justify-center pb-12">
+              <Logo width="64px" height="64px" />
+            </div>
+            <div className="flex flex-col space-y-4">
+              <Auth
+                supabaseClient={supabaseClient}
+                providers={['github']}
+                redirectTo={'http://localhost:3000'}
+                magicLink={true}
+                appearance={{
+                  theme: ThemeSupa,
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: '#404040',
+                        brandAccent: '#52525b',
+                      },
+                    },
+                  },
+                }}
+                theme="dark"
+              />
+            </div>
+          </div>
         </div>
-
-        <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-          <button
-            disabled={signInClicked}
-            className={`${
-              signInClicked
-                ? 'cursor-not-allowed border-gray-200 bg-gray-100'
-                : 'border border-gray-200 bg-white text-black hover:bg-gray-50'
-            } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
-            onClick={() => {
-              setSignInClicked(true);
-              //   signIn('google');
-            }}
-          >
-            {signInClicked ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <>
-                <Google className="h-5 w-5" />
-                <p>Zaloguj z Google</p>
-              </>
-            )}
-          </button>
+      ) : (
+        <div className="m-6">
+          <LoadingDots />
         </div>
-      </div>
+      )}
     </Modal>
   );
 };

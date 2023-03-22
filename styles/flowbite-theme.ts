@@ -45,7 +45,7 @@ const flowbiteTheme: CustomFlowbiteTheme = {
   },
   navbar: {
     root: {
-      base: 'fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700',
+      base: 'fixed z-30 w-full text-gray-700 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700',
     },
   },
   sidebar: {

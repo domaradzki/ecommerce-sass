@@ -1,10 +1,13 @@
 import type { FC } from 'react';
-import Link from 'next/link';
+import { useUser } from '@supabase/auth-helpers-react';
+
 import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button, DarkThemeToggle, Dropdown, Navbar } from 'flowbite-react';
 import { useSignInModal } from '@/components/SignInModal';
-import UserDropdown from '@/components/UserDropdown';
+import { useRouter } from 'next/router';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+// import UserDropdown from '@/components/UserDropdown';
 import DropDownNotification from '@/components//DropDownNotification';
 import DropDownApps from '@/components//DropDownApps';
 import DropDownProfile from '@/components//DropDownProfile';
@@ -12,7 +15,9 @@ import DropDownProfile from '@/components//DropDownProfile';
 // import UserDropdown from "./user-dropdown";
 
 const MainNavbar: FC = function () {
-  // const { data: session, status } = useSession();
+  const user = useUser();
+  console.log('Navbar', user);
+  // const { username, avatar_url } = user;
   const { SignInModal, setShowSignInModal } = useSignInModal();
   return (
     <Navbar fluid>
@@ -121,7 +126,7 @@ const MainNavbar: FC = function () {
             <div>
               <AnimatePresence>
                 {/* {!session ? ( */}
-                {true ? (
+                {!user ? (
                   <motion.button
                     className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
                     onClick={() => setShowSignInModal(true)}
