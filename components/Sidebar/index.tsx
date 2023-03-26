@@ -1,6 +1,6 @@
-import { Sidebar, TextInput } from "flowbite-react";
-import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { Sidebar, TextInput } from 'flowbite-react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import {
   HiTemplate,
   HiClipboard,
@@ -13,10 +13,10 @@ import {
   HiDocumentDuplicate,
   HiAnnotation,
   HiViewGridAdd,
-} from "react-icons/hi";
+} from 'react-icons/hi';
 
 const ExampleSidebar: FC = function () {
-  const [currentPage, setCurrentPage] = useState("");
+  const [currentPage, setCurrentPage] = useState('');
 
   useEffect(() => {
     const newPage = window.location.pathname;
@@ -43,9 +43,9 @@ const ExampleSidebar: FC = function () {
                 href="/dashboard"
                 icon={HiTemplate}
                 className={
-                  "/dashboard" === currentPage
-                    ? "bg-gray-100 dark:bg-gray-700"
-                    : ""
+                  '/dashboard' === currentPage
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
                 }
               >
                 Pulpit
@@ -54,9 +54,9 @@ const ExampleSidebar: FC = function () {
                 href="/products"
                 icon={HiShoppingBag}
                 className={
-                  "/products" === currentPage
-                    ? "bg-gray-100 dark:bg-gray-700"
-                    : ""
+                  '/products' === currentPage
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
                 }
               >
                 Produkty
@@ -65,9 +65,9 @@ const ExampleSidebar: FC = function () {
                 href="/integrations"
                 icon={HiViewGridAdd}
                 className={
-                  "/integrations" === currentPage
-                    ? "bg-gray-100 dark:bg-gray-700"
-                    : ""
+                  '/integrations' === currentPage
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
                 }
               >
                 Integracje
@@ -76,9 +76,9 @@ const ExampleSidebar: FC = function () {
                 href="/auctions"
                 icon={HiAnnotation}
                 className={
-                  "/auctions" === currentPage
-                    ? "bg-gray-100 dark:bg-gray-700"
-                    : ""
+                  '/auctions' === currentPage
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
                 }
               >
                 Aukcje
@@ -87,18 +87,21 @@ const ExampleSidebar: FC = function () {
                 href="/orders"
                 icon={HiDocumentDuplicate}
                 className={
-                  "/orders" === currentPage
-                    ? "bg-gray-100 dark:bg-gray-700"
-                    : ""
+                  '/orders' === currentPage
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
                 }
               >
                 Zamówienia
               </Sidebar.Item>
-              <Sidebar.Item href="/authentication/sign-in" icon={HiLogin}>
-                Sign in
-              </Sidebar.Item>
-              <Sidebar.Item href="/authentication/sign-up" icon={HiPencil}>
-                Sign up
+              <Sidebar.Item
+                href="/todos"
+                icon={HiPencil}
+                className={
+                  '/todos' === currentPage ? 'bg-gray-100 dark:bg-gray-700' : ''
+                }
+              >
+                Zadania
               </Sidebar.Item>
             </Sidebar.ItemGroup>
             <Sidebar.ItemGroup>

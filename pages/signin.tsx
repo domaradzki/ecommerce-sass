@@ -18,7 +18,7 @@ const SignIn = () => {
       router.replace('/dashboard');
     }
   }, [user]);
-  console.log('getURL', getURL());
+
   if (!user)
     return (
       <div className="height-screen-helper flex justify-center">

@@ -26,7 +26,6 @@ const SignInModal = ({
   const user = useUser();
   const supabaseClient = useSupabaseClient();
 
-  console.log('user', user);
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
       {!user ? (

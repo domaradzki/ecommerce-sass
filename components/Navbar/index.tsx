@@ -1,23 +1,15 @@
 import type { FC } from 'react';
 import { useUser } from '@supabase/auth-helpers-react';
-
 import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Button, DarkThemeToggle, Dropdown, Navbar } from 'flowbite-react';
+import { DarkThemeToggle, Navbar } from 'flowbite-react';
 import { useSignInModal } from '@/components/SignInModal';
-import { useRouter } from 'next/router';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-// import UserDropdown from '@/components/UserDropdown';
 import DropDownNotification from '@/components//DropDownNotification';
 import DropDownApps from '@/components//DropDownApps';
 import DropDownProfile from '@/components//DropDownProfile';
-// import { useSignInModal } from "./sign-in-modal";
-// import UserDropdown from "./user-dropdown";
 
 const MainNavbar: FC = function () {
   const user = useUser();
-  console.log('Navbar', user);
-  // const { username, avatar_url } = user;
   const { SignInModal, setShowSignInModal } = useSignInModal();
   return (
     <Navbar fluid>
@@ -26,7 +18,12 @@ const MainNavbar: FC = function () {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Navbar.Brand href="/">
-              <img alt="" src="/images/logo.svg" className="mr-3 h-6 sm:h-8" />
+              <img
+                alt=""
+                src="/logo.png"
+                className="mr-3 h-6 sm:h-8"
+                width={'100%'}
+              />
               <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
                 Giedee SASS
               </span>
