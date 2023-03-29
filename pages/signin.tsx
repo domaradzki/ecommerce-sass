@@ -13,11 +13,11 @@ const SignIn = () => {
   const user = useUser();
   const supabaseClient = useSupabaseClient();
 
-  useEffect(() => {
-    if (user) {
-      router.replace('/dashboard');
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     router.replace('/dashboard');
+  //   }
+  // }, [user]);
 
   if (!user)
     return (

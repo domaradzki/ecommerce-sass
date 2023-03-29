@@ -5,20 +5,23 @@ import AcquisitionOverview from '@/components/AcquistionOverview';
 import LatestTransactions from '@/components/LatestTransactions';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useUser } from '@supabase/auth-helpers-react';
+// import { useUser } from '@supabase/auth-helpers-react';
+import useAuthUser from 'hooks/useAuthUser';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const user = useUser();
+  const user = useAuthUser();
 
-  useEffect(() => {
-    if (user) {
-      router.replace('/dashboard');
-    }
-    if (!user) {
-      router.replace('/signin');
-    }
-  }, [user]);
+  console.log('dash', user);
+  console.log('dash', typeof user);
+  // useEffect(() => {
+  //   if (user) {
+  //     router.replace('/dashboard');
+  //   }
+  //   if (!user) {
+  //     router.replace('/signin');
+  //   }
+  // }, [user]);
 
   return (
     <Layout>
