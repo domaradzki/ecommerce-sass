@@ -3,17 +3,20 @@ import SalesThisWeek from '@/components/SalesThisWeek';
 import LatestCustomers from '@/components/LatestCustomers';
 import AcquisitionOverview from '@/components/AcquistionOverview';
 import LatestTransactions from '@/components/LatestTransactions';
-import { useEffect } from 'react';
+import { GetServerSidePropsContext } from 'next';
+import {
+  createServerSupabaseClient,
+  User,
+} from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/router';
-// import { useUser } from '@supabase/auth-helpers-react';
-import useAuthUser from 'hooks/useAuthUser';
+import { useUser } from '@/utils/hooks/useUser';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const user = useAuthUser();
-
+  const user = useUser();
   console.log('dash', user);
-  console.log('dash', typeof user);
+
+  // console.log('dash', typeof user);
   // useEffect(() => {
   //   if (user) {
   //     router.replace('/dashboard');
@@ -38,3 +41,25 @@ export default function DashboardPage() {
     </Layout>
   );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const supabase = createServerSupabaseClient(ctx);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session)
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+
+  return {
+    props: {
+      initialSession: session,
+      user: session.user,
+    },
+  };
+};

@@ -6,6 +6,7 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { Provider as RWBProvider } from 'react-wrap-balancer';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { MyUserContextProvider } from '@/utils/hooks/useUser';
 import theme from '@/styles/flowbite-theme';
 
 import 'styles/main.css';
@@ -34,16 +35,18 @@ export default function MyApp({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <RWBProvider>
-        <Flowbite theme={{ theme }}>
-          <div>
-            <QueryClientProvider client={queryClient}>
-              <Component {...pageProps} />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-          </div>
-        </Flowbite>
-      </RWBProvider>
+      <MyUserContextProvider>
+        <RWBProvider>
+          <Flowbite theme={{ theme }}>
+            <div>
+              <QueryClientProvider client={queryClient}>
+                <Component {...pageProps} />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </QueryClientProvider>
+            </div>
+          </Flowbite>
+        </RWBProvider>
+      </MyUserContextProvider>
     </SessionContextProvider>
   );
 }

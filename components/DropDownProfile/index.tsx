@@ -1,7 +1,7 @@
 import { Dropdown } from 'flowbite-react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useEffect, useState } from 'react';
-
+import { useUser as useAuthor } from '@/utils/hooks/useUser';
 import { LayoutDashboard, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -11,11 +11,14 @@ type Profiles = Database['public']['Tables']['profiles']['Row'];
 export default function DropDownProfile() {
   const supabase = useSupabaseClient<Database>();
   const user = useUser();
+  const auth = useAuthor();
+  console.log(auth.userDetails);
+  // const avatar_url = auth?.userDetails?.avatar_url;
   const [username, setUsername] = useState<Profiles['username']>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
   const [profilImage, setProfilImage] = useState<Profiles['avatar_url']>(null);
   const [loading, setLoading] = useState(true);
-
+  console.log('dropdown', auth);
   useEffect(() => {
     async function downloadImage(path: string) {
       try {
