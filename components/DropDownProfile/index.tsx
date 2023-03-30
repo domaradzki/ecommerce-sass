@@ -1,24 +1,20 @@
 import { Dropdown } from 'flowbite-react';
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useEffect, useState } from 'react';
-import { useUser as useAuthor } from '@/utils/hooks/useUser';
+import { useUser } from '@/utils/hooks/useUser';
 import { LayoutDashboard, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Database } from '@/types/database.types';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 
 export default function DropDownProfile() {
   const supabase = useSupabaseClient<Database>();
   const user = useUser();
-  const auth = useAuthor();
-  // console.log(auth.userDetails.avatar_url);
-  // const avatar_url = auth?.userDetails?.avatar_url;
   const [username, setUsername] = useState<Profiles['username']>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
   const [profilImage, setProfilImage] = useState<Profiles['avatar_url']>(null);
-  const [loading, setLoading] = useState(true);
-  console.log('dropdown', auth);
+
   useEffect(() => {
     async function downloadImage(path: string) {
       try {
@@ -39,13 +35,13 @@ export default function DropDownProfile() {
   }, [avatar_url]);
 
   useEffect(() => {
-    if (auth.userDetails) {
-      setUsername(auth.userDetails.username);
-      setAvatarUrl(auth.userDetails.avatar_url);
+    if (user.userDetails) {
+      setUsername(user.userDetails.full_name);
+      setAvatarUrl(user.userDetails.avatar_url);
     }
-  }, [auth, supabase]);
+  }, [user, supabase]);
 
-  const email = auth.user?.email;
+  const email = user.user?.email;
 
   return (
     <Dropdown
@@ -71,11 +67,14 @@ export default function DropDownProfile() {
     >
       {/* <!-- Dropdown menu --> */}
       <div
-        className="z-50 my-4 list-none divide-y divide-gray-100 rounded bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
+        className="z-50 mt-1 mb-5 divide-y divide-gray-100 bg-white px-5 text-base dark:divide-gray-600 dark:bg-gray-700"
         id="dropdown-2"
       >
-        <div className="px-4 py-3" role="none">
-          <p className="text-sm text-gray-900 dark:text-white" role="none">
+        <div className="px-4 pt-0 pb-4" role="none">
+          <p
+            className="truncate py-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            role="none"
+          >
             {user && username}
           </p>
           <p
@@ -85,7 +84,7 @@ export default function DropDownProfile() {
             {user && email}
           </p>
         </div>
-        <ul className="py-1" role="none">
+        <ul className="pb- pt-1" role="none">
           <li>
             <Link
               className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"

@@ -10,12 +10,12 @@ const AddTodo = () => {
   const user = useUser();
   const supabaseClient = useSupabaseClient();
   const queryClient = useQueryClient();
-
+  console.log('add', user);
   const { mutate: addTodoMutation } = useMutation(
     async (payload: { item: string; user: User }) => {
       const { data, error } = await supabaseClient.from('todos').insert([
         {
-          name: payload.item,
+          task: payload.item,
           user_id: payload.user.id,
         },
       ]);
@@ -33,7 +33,7 @@ const AddTodo = () => {
     },
   );
   const handleAddItem = async (item: string) => {
-    addTodoMutation({ item, user: user });
+    addTodoMutation({ item, user: user! });
   };
   return (
     <TextInput

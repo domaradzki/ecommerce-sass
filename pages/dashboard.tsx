@@ -4,15 +4,10 @@ import LatestCustomers from '@/components/LatestCustomers';
 import AcquisitionOverview from '@/components/AcquistionOverview';
 import LatestTransactions from '@/components/LatestTransactions';
 import { GetServerSidePropsContext } from 'next';
-import {
-  createServerSupabaseClient,
-  User,
-} from '@supabase/auth-helpers-nextjs';
-import { useRouter } from 'next/router';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useUser } from '@/utils/hooks/useUser';
 
 export default function DashboardPage() {
-  const router = useRouter();
   const user = useUser();
   console.log('dash', user);
 

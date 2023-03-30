@@ -20,7 +20,7 @@ const MainNavbar: FC = function () {
             <Navbar.Brand href="/">
               <img
                 alt=""
-                src="/logo.png"
+                src="/favicon.ico"
                 className="mr-3 h-6 sm:h-8"
                 width={'100%'}
               />
