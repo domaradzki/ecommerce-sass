@@ -12,7 +12,7 @@ export default function DropDownProfile() {
   const supabase = useSupabaseClient<Database>();
   const user = useUser();
   const auth = useAuthor();
-  console.log(auth.userDetails);
+  // console.log(auth.userDetails.avatar_url);
   // const avatar_url = auth?.userDetails?.avatar_url;
   const [username, setUsername] = useState<Profiles['username']>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
@@ -39,36 +39,13 @@ export default function DropDownProfile() {
   }, [avatar_url]);
 
   useEffect(() => {
-    async function getProfile() {
-      try {
-        setLoading(true);
-        if (!user) throw new Error('No user');
-
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`username, full_name, website, avatar_url`)
-          .eq('id', user.id)
-          .single();
-
-        if (error && status !== 406) {
-          throw error;
-        }
-
-        if (data) {
-          setUsername(data.username);
-          setAvatarUrl(data.avatar_url);
-        }
-      } catch (error) {
-        alert('Error loading user data!');
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
+    if (auth.userDetails) {
+      setUsername(auth.userDetails.username);
+      setAvatarUrl(auth.userDetails.avatar_url);
     }
-    getProfile();
-  }, [user, supabase]);
+  }, [auth, supabase]);
 
-  const email = user?.email;
+  const email = auth.user?.email;
 
   return (
     <Dropdown
