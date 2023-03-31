@@ -10,14 +10,6 @@ import {
 import {
   Card,
   Spinner,
-  //   Stack,
-  //   ListItem,
-  //   ListGroup,
-  //   ListIcon,
-  //   HStack,
-  //   VStack,
-  //   Flex,
-  //   Text,
   Table,
 } from 'flowbite-react';
 import { HiOutlinePencilAlt, HiTrash } from 'react-icons/hi';
@@ -45,26 +37,7 @@ const Todos = () => {
       setTodos(user.userTodos);
     }
   }, [user, supabase]);
-  //   const supabaseClient = useSupabaseClient();
-  //   const [isOpen, setIsOpen] = useState<boolean>(false);
-  //   const [selectedItem, setSelectedItem] = useState<{
-  //     id: number;
-  //     name: string;
-  //   }>();
-  //   const queryClient = useQueryClient();
-  //   const { data, isLoading, isError, isSuccess } = useQuery(
-  //     'todos',
-  //     async () => {
-  //       const { data, error } = await supabaseClient
-  //         .from('todos')
-  //         .select()
-  //         .order('id', { ascending: true });
-  //       if (error) {
-  //         throw new Error(error.message);
-  //       }
-  //       return data;
-  //     },
-  //   );
+
   if (isLoading && !todos) {
     return (
       <Card>

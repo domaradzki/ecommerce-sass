@@ -39,6 +39,7 @@ export const MyUserContextProvider = (props: Props) => {
 
   const getUserDetails = () =>
     supabase.from('profiles').select('*').eq('id', user?.id).single();
+    
   const getTodos = () =>
     supabase
       .from('todos')
