@@ -7,13 +7,12 @@ import {
 import { Database } from '@/types/database.types';
 
 type Profiles = Database['public']['Tables']['profiles']['Row'];
-type Todos = Database['public']['Tables']['todos']['Row'];
 
 type UserContextType = {
+  [x: string]: unknown;
   accessToken: string | null;
   user: User | null;
   userDetails: Profiles | null;
-  userTodos: Todos[] | null;
   isLoading: boolean;
 };
 
@@ -35,36 +34,23 @@ export const MyUserContextProvider = (props: Props) => {
   const accessToken = session?.access_token ?? null;
   const [isLoadingData, setIsloadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<Profiles | null>(null);
-  const [userTodos, setTodos] = useState<Todos[] | null>(null);
 
   const getUserDetails = () =>
     supabase.from('profiles').select('*').eq('id', user?.id).single();
-    
-  const getTodos = () =>
-    supabase
-      .from('todos')
-      .select()
-      .eq('user_id', user?.id)
-      .order('id', { ascending: true });
 
   useEffect(() => {
-    if (user && !isLoadingData && !userDetails && !userTodos) {
+    if (user && !isLoadingData && !userDetails) {
       setIsloadingData(true);
-      Promise.allSettled([getUserDetails(), getTodos()]).then((results) => {
+      Promise.allSettled([getUserDetails()]).then((results) => {
         const userDetailsPromise = results[0];
-        const userTodosPromise = results[1];
 
         if (userDetailsPromise.status === 'fulfilled')
           setUserDetails(userDetailsPromise.value.data as Profiles);
-
-        if (userTodosPromise.status === 'fulfilled')
-          setTodos(userTodosPromise.value.data as Todos[]);
 
         setIsloadingData(false);
       });
     } else if (!user && !isLoadingUser && !isLoadingData) {
       setUserDetails(null);
-      setTodos(null);
     }
   }, [user, isLoadingUser]);
 
@@ -72,7 +58,6 @@ export const MyUserContextProvider = (props: Props) => {
     accessToken,
     user,
     userDetails,
-    userTodos,
     isLoading: isLoadingUser || isLoadingData,
   };
 

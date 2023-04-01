@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import {
   QueryClient,
   useMutation,
@@ -7,13 +7,9 @@ import {
   useQueryClient,
 } from 'react-query';
 
-import {
-  Card,
-  Spinner,
-  Table,
-} from 'flowbite-react';
-import { HiOutlinePencilAlt, HiTrash } from 'react-icons/hi';
-import { useUser } from '@/utils/hooks/useUser';
+import { Card, Spinner, Table } from 'flowbite-react';
+import { HiOutlinePencilAlt, HiTrash, HiCheck, HiX } from 'react-icons/hi';
+// import { useUser } from '@/utils/hooks/useUser';
 import { Database } from '@/types/database.types';
 type Todos = Database['public']['Tables']['todos']['Row'];
 
@@ -25,20 +21,60 @@ const Todos = () => {
     task: string;
   }>();
   const queryClient = useQueryClient();
+
   const user = useUser();
-  const { isLoading } = user;
   const supabase = useSupabaseClient<Database>();
   const [todos, setTodos] = useState<Todos[] | null>(null);
   console.log('todos', todos);
 
-  
-  useEffect(() => {
-    if (user.userTodos) {
-      setTodos(user.userTodos);
-    }
-  }, [user, supabase]);
+  const { data, isLoading, isError, isSuccess } = useQuery(
+    'todos',
+    async () => {
+      const { data, error } = await supabase
+        .from('todos')
+        .select('*')
+        .eq('user_id', user?.id)
+        .order('id', { ascending: true });
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+    },
+  );
+  console.log('todos-data', data);
 
-  if (isLoading && !todos) {
+  const { mutate } = useMutation(
+    async (id: number) => {
+      const { data, error } = await supabase
+        .from('todos')
+        .delete()
+        .match({ id });
+      if (error) {
+        toast.error('Something went wrong');
+        return error;
+      }
+      return data;
+    },
+    {
+      onSuccess: () => {
+        toast.success('Item Deleted successfully');
+        return queryClient.refetchQueries('todos');
+      },
+    },
+  );
+
+  const handleUpdateModalClose = () => {
+    setIsOpen(!isOpen);
+  };
+  const onItemClick = (todo: { id: number; task: string }) => {
+    setSelectedItem(todo);
+    setIsOpen(true);
+  };
+  const onDeleteItemClick = async (id: number) => {
+    await mutate(id);
+  };
+
+  if (isLoading) {
     return (
       <Card>
         <Spinner size="xl" />
@@ -47,10 +83,16 @@ const Todos = () => {
   }
   return (
     <>
-      <Table>
+      <Table striped={true}>
+        <Table.Head>
+          <Table.HeadCell>Zadanie</Table.HeadCell>
+          <Table.HeadCell>Termin</Table.HeadCell>
+          <Table.HeadCell>Ukończono</Table.HeadCell>
+          <Table.HeadCell>Akcje</Table.HeadCell>
+        </Table.Head>
         <Table.Body className="divide-y">
-          {todos &&
-            todos!.map((todo: any) => (
+          {data &&
+            data!.map((todo: any) => (
               <Table.Row
                 key={todo.id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -58,14 +100,30 @@ const Todos = () => {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {todo.task}
                 </Table.Cell>
-                <Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {new Date(todo.inserted_at).toLocaleString()}
+                </Table.Cell>
+                <Table.Cell className="flex justify-center">
+                  {todo.is_complete ? (
+                    <HiCheck className="center h-6 w-6 text-green-700" />
+                  ) : (
+                    <HiX
+                      className="h-6 w-6 text-red-700"
+                      onClick={() => onDeleteItemClick(todo.id)}
+                    />
+                  )}
+                </Table.Cell>
+                <Table.Cell className=" flex justify-center">
+                  <HiOutlinePencilAlt
+                    cursor={'pointer'}
+                    className="h-6 w-6 text-blue-600"
+                    onClick={() => onItemClick(todo)}
+                  />
                   <HiTrash
                     cursor={'pointer'}
-                    color="red.500"
-                    //   mr="2"
-                    onClick={() => {}}
+                    className="text-black-900 h-6 w-6 "
+                    onClick={() => onDeleteItemClick(todo.id)}
                   />
-                  <HiOutlinePencilAlt cursor={'pointer'} onClick={() => {}} />
                 </Table.Cell>
               </Table.Row>
             ))}

@@ -28,7 +28,7 @@
       "@/pages/*": ["pages/*"],
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
-       "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"]
     },
     "incremental": true,
     "types": ["vite/client"]
