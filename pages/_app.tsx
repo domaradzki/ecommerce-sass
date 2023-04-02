@@ -18,6 +18,8 @@ const queryClient = new QueryClient({
       retry: 0,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
+      // staleTime: Infinity,
+      // structuralSharing: false,
     },
   },
 });

@@ -7,13 +7,14 @@ import {
   useQueryClient,
 } from 'react-query';
 
-import { Card, Spinner, Table } from 'flowbite-react';
+import { Badge, Card, Spinner, Table } from 'flowbite-react';
 import { HiOutlinePencilAlt, HiTrash, HiCheck, HiX } from 'react-icons/hi';
 // import { useUser } from '@/utils/hooks/useUser';
 import { Database } from '@/types/database.types';
 type Todos = Database['public']['Tables']['todos']['Row'];
 
 import toast from 'react-hot-toast';
+import EditTodosModal from '../EditTodosModal';
 const Todos = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<{
@@ -21,11 +22,9 @@ const Todos = () => {
     task: string;
   }>();
   const queryClient = useQueryClient();
-
+  // const { isLoading, subscription, userDetails } = useUser();
   const user = useUser();
   const supabase = useSupabaseClient<Database>();
-  const [todos, setTodos] = useState<Todos[] | null>(null);
-  console.log('todos', todos);
 
   const { data, isLoading, isError, isSuccess } = useQuery(
     'todos',
@@ -40,8 +39,10 @@ const Todos = () => {
       }
       return data;
     },
+    {
+      enabled: !!user, // Only run the query if user is defined
+    },
   );
-  console.log('todos-data', data);
 
   const { mutate } = useMutation(
     async (id: number) => {
@@ -74,6 +75,13 @@ const Todos = () => {
     await mutate(id);
   };
 
+  if (!user) {
+    return (
+      <Card>
+        <Spinner size="xl" />
+      </Card>
+    );
+  }
   if (isLoading) {
     return (
       <Card>
@@ -87,11 +95,11 @@ const Todos = () => {
         <Table.Head>
           <Table.HeadCell>Zadanie</Table.HeadCell>
           <Table.HeadCell>Termin</Table.HeadCell>
-          <Table.HeadCell>Ukończono</Table.HeadCell>
-          <Table.HeadCell>Akcje</Table.HeadCell>
+          <Table.HeadCell>Status</Table.HeadCell>
+          <Table.HeadCell className="flex justify-end">Akcje</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {data &&
+          {isSuccess &&
             data!.map((todo: any) => (
               <Table.Row
                 key={todo.id}
@@ -103,25 +111,22 @@ const Todos = () => {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {new Date(todo.inserted_at).toLocaleString()}
                 </Table.Cell>
-                <Table.Cell className="flex justify-center">
+                <Table.Cell className="w-5">
                   {todo.is_complete ? (
-                    <HiCheck className="center h-6 w-6 text-green-700" />
+                    <Badge color="success">Ukończone</Badge>
                   ) : (
-                    <HiX
-                      className="h-6 w-6 text-red-700"
-                      onClick={() => onDeleteItemClick(todo.id)}
-                    />
+                    <Badge color="purple">Nowe</Badge>
                   )}
                 </Table.Cell>
-                <Table.Cell className=" flex justify-center">
+                <Table.Cell className="flex justify-end">
                   <HiOutlinePencilAlt
                     cursor={'pointer'}
-                    className="h-6 w-6 text-blue-600"
+                    className="mr-2 h-6 w-6 text-blue-600"
                     onClick={() => onItemClick(todo)}
                   />
                   <HiTrash
                     cursor={'pointer'}
-                    className="text-black-900 h-6 w-6 "
+                    className="h-6 w-6 text-red-700 "
                     onClick={() => onDeleteItemClick(todo.id)}
                   />
                 </Table.Cell>
@@ -129,6 +134,11 @@ const Todos = () => {
             ))}
         </Table.Body>
       </Table>
+      <EditTodosModal
+        todo={selectedItem!}
+        isOpen={isOpen}
+        onClose={handleUpdateModalClose}
+      />
     </>
   );
 };
