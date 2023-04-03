@@ -10,8 +10,8 @@ export default function TodosPage() {
     <Layout>
       <ProtectedWrapper>
         <div className="px-4 pt-6">
-          <AddTodo />
           <Todos />
+          <AddTodo />
         </div>
         <Toaster />
       </ProtectedWrapper>

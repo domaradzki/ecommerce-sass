@@ -1,30 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from 'react-query';
-
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import toast from 'react-hot-toast';
 import { Badge, Card, Spinner, Table } from 'flowbite-react';
-import { HiOutlinePencilAlt, HiTrash, HiCheck, HiX } from 'react-icons/hi';
-// import { useUser } from '@/utils/hooks/useUser';
+import { HiOutlinePencilAlt, HiTrash } from 'react-icons/hi';
+
+// import EditTodosModal from '../EditTodosModal';
+
 import { Database } from '@/types/database.types';
 type Todos = Database['public']['Tables']['todos']['Row'];
 
-import toast from 'react-hot-toast';
-import EditTodosModal from '../EditTodosModal';
 const Todos = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLTableElement>(null);
   const [selectedItem, setSelectedItem] = useState<{
     id: number;
     task: string;
   }>();
-  const queryClient = useQueryClient();
-  // const { isLoading, subscription, userDetails } = useUser();
+  const [editableCell, setEditableCell] = useState<{
+    id: number;
+    task: string;
+  }>();
   const user = useUser();
   const supabase = useSupabaseClient<Database>();
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError, isSuccess } = useQuery(
     'todos',
@@ -44,7 +42,7 @@ const Todos = () => {
     },
   );
 
-  const { mutate } = useMutation(
+  const { mutate: mutationDelete } = useMutation(
     async (id: number) => {
       const { data, error } = await supabase
         .from('todos')
@@ -64,16 +62,72 @@ const Todos = () => {
     },
   );
 
-  const handleUpdateModalClose = () => {
-    setIsOpen(!isOpen);
-  };
+  const { mutate: updateMutation } = useMutation(
+    async (item: any) => {
+      const { data, error } = await supabase
+        .from('todos')
+        .update({ task: item.task })
+        .match({ id: item.id });
+      if (error) {
+        toast.error('Something went wrong');
+        return error;
+      }
+      return data;
+    },
+    {
+      onSuccess: () => {
+        toast.success('Item Updated successfully');
+        //  setCurrentItem('');
+        //  onClose();
+        return queryClient.refetchQueries('todos');
+      },
+    },
+  );
+  //   const handleUpdate = (id: number, task: string) => {
+  //     updateMutation({ id: selectedItem?.id, task: item });
+  //   };
+
+  //   const handleUpdateModalClose = () => {
+  //     setIsOpen(!isOpen);
+  //   };
+  //   const handleEditableCellClick = (id: number, task: string) => {
+  //     setEditableCell({ id, task });
+  //   };
   const onItemClick = (todo: { id: number; task: string }) => {
     setSelectedItem(todo);
-    setIsOpen(true);
   };
   const onDeleteItemClick = async (id: number) => {
-    await mutate(id);
+    await mutationDelete(id);
   };
+
+  const handleEditableCellBlur = async (id: number) => {
+    setEditableCell(undefined);
+    await supabase
+      .from('todos')
+      .update({ task: editableCell?.task })
+      .match({ id });
+    queryClient.invalidateQueries('todos');
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      console.log(event);
+      console.log(wrapperRef);
+
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setSelectedItem(undefined);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   if (!user) {
     return (
@@ -91,7 +145,7 @@ const Todos = () => {
   }
   return (
     <>
-      <Table striped={true}>
+      <Table hoverable={true}>
         <Table.Head>
           <Table.HeadCell>Zadanie</Table.HeadCell>
           <Table.HeadCell>Termin</Table.HeadCell>
@@ -105,8 +159,39 @@ const Todos = () => {
                 key={todo.id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {todo.task}
+                <Table.Cell
+                  className="whitespace-nowrap py-2 font-medium text-gray-900 dark:text-white"
+                  onClick={() => {
+                    onItemClick(todo);
+                    // setIsOpen(true);
+                  }}
+                  ref={wrapperRef.current}
+                >
+                  {selectedItem?.id === todo.id ? (
+                    <input
+                      type="text"
+                      autoFocus
+                      value={selectedItem?.task}
+                      onChange={(e) =>
+                        setSelectedItem({
+                          ...selectedItem!,
+                          task: e.target.value,
+                        })
+                      }
+                      onClick={(e) => e.stopPropagation()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          // Save changes to database
+                          updateMutation(selectedItem);
+                          setSelectedItem(undefined);
+                        } else if (e.key === 'Escape') {
+                          setSelectedItem(undefined);
+                        }
+                      }}
+                    />
+                  ) : (
+                    todo.task
+                  )}
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {new Date(todo.inserted_at).toLocaleString()}
@@ -134,11 +219,11 @@ const Todos = () => {
             ))}
         </Table.Body>
       </Table>
-      <EditTodosModal
+      {/* <EditTodosModal
         todo={selectedItem!}
         isOpen={isOpen}
         onClose={handleUpdateModalClose}
-      />
+      /> */}
     </>
   );
 };

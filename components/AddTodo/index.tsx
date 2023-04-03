@@ -40,6 +40,7 @@ const AddTodo = () => {
       type={'text'}
       value={currentItem}
       placeholder="Enter item here"
+      className="mt-1"
       onChange={(e) => setCurrentItem(e.target.value)}
       onKeyPress={(e) => {
         if (e.key === 'Enter') {
