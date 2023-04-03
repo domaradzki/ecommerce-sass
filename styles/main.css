@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .input-cell {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 0.875rem !important;
+  }
+}
+
 *,
 *:before,
 *:after {

@@ -3,7 +3,7 @@ import type { CustomFlowbiteTheme } from 'flowbite-react';
 const flowbiteTheme: CustomFlowbiteTheme = {
   badge: {
     icon: {
-      off: 'rounded-full px-2 py-1',
+      off: 'rounded-full px-3 py-1',
     },
     root: {
       color: {
