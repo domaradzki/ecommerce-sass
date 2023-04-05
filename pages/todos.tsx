@@ -1,6 +1,5 @@
 import Layout from '@/components/Layout';
-import { useMutation, useQueryClient } from 'react-query';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import AddTodo from '@/components/AddTodo';
 import Todos from '@/components/Todos';
 import ProtectedWrapper from '@/components/ProtectedWrapper';

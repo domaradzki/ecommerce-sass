@@ -9,7 +9,8 @@
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "lint": "next lint",
-    "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhooks --project-name=saas-starter"
+    "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhooks --project-name=saas-starter",
+    "update-types": "npx supabase gen types typescript --project-id 'oqhfaxdkklpylkqiyckf' --schema public > types/database.types.ts"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.5",

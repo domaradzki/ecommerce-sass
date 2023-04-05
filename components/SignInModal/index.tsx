@@ -11,6 +11,7 @@ import {
   SetStateAction,
   useCallback,
   useMemo,
+  useEffect,
 } from 'react';
 import LoadingDots from '@/components/ui/LoadingDots';
 // import { LoadingDots, Google } from '@/components/shared/icons';
@@ -25,6 +26,12 @@ const SignInModal = ({
   const router = useRouter();
   const user = useUser();
   const supabaseClient = useSupabaseClient();
+
+  useEffect(() => {
+    if (!!user) {
+      setShowSignInModal(false);
+    }
+  }, [user]);
 
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>

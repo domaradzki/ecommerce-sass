@@ -5,34 +5,23 @@ import AcquisitionOverview from '@/components/AcquistionOverview';
 import LatestTransactions from '@/components/LatestTransactions';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@/utils/hooks/useUser';
+import ProtectedWrapper from '@/components/ProtectedWrapper';
 
 export default function DashboardPage() {
-  const user = useUser();
-  console.log('dash', user);
-
-  // console.log('dash', typeof user);
-  // useEffect(() => {
-  //   if (user) {
-  //     router.replace('/dashboard');
-  //   }
-  //   if (!user) {
-  //     router.replace('/signin');
-  //   }
-  // }, [user]);
-
   return (
     <Layout>
-      <div className="px-4 pt-6">
-        <SalesThisWeek />
-        <div className="my-6">
-          <LatestTransactions />
+      <ProtectedWrapper>
+        <div className="px-4 pt-6">
+          <SalesThisWeek />
+          <div className="my-6">
+            <LatestTransactions />
+          </div>
+          <LatestCustomers />
+          <div className="my-6">
+            <AcquisitionOverview />
+          </div>
         </div>
-        <LatestCustomers />
-        <div className="my-6">
-          <AcquisitionOverview />
-        </div>
-      </div>
+      </ProtectedWrapper>
     </Layout>
   );
 }

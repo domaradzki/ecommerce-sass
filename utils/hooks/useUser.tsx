@@ -4,6 +4,7 @@ import {
   useSessionContext,
   User,
 } from '@supabase/auth-helpers-react';
+import { useQuery } from 'react-query';
 import { Database } from '@/types/database.types';
 
 type Profiles = Database['public']['Tables']['profiles']['Row'];
@@ -32,33 +33,35 @@ export const MyUserContextProvider = (props: Props) => {
   } = useSessionContext();
   const user = useSupaUser();
   const accessToken = session?.access_token ?? null;
-  const [isLoadingData, setIsloadingData] = useState(false);
+  // const [isLoadingData, setIsloadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<Profiles | null>(null);
 
   const getUserDetails = () =>
     supabase.from('profiles').select('*').eq('id', user?.id).single();
 
+  const { data, isLoading: isLoadingUserDetails } = useQuery(
+    ['userDetails', user?.id],
+    async () => getUserDetails(),
+    {
+      enabled: !!user,
+      staleTime: Infinity,
+    },
+  );
   useEffect(() => {
-    if (user && !isLoadingData && !userDetails) {
-      setIsloadingData(true);
-      Promise.allSettled([getUserDetails()]).then((results) => {
-        const userDetailsPromise = results[0];
-
-        if (userDetailsPromise.status === 'fulfilled')
-          setUserDetails(userDetailsPromise.value.data as Profiles);
-
-        setIsloadingData(false);
-      });
-    } else if (!user && !isLoadingUser && !isLoadingData) {
+    if (user && !userDetails && !isLoadingUserDetails) {
+      setUserDetails(data?.data as Profiles);
+    } else if (!user) {
       setUserDetails(null);
     }
-  }, [user, isLoadingUser]);
+  }, [user, isLoadingUserDetails]);
+
+  const isLoading = isLoadingUser || isLoadingUserDetails;
 
   const value = {
     accessToken,
     user,
     userDetails,
-    isLoading: isLoadingUser || isLoadingData,
+    isLoading,
   };
 
   return <UserContext.Provider value={value} {...props} />;

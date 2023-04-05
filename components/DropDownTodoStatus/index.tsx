@@ -38,7 +38,7 @@ export default function DropDownTodoStatus() {
       pill={false}
       placement="bottom"
       positionInGroup="middle"
-      title="Dropdown profile"
+      title="Dropdown status"
       trigger="click"
       label={<Badge color="purple">To do</Badge>}
     >
