@@ -164,24 +164,24 @@ const Todos = () => {
                     todo.task
                   )}
                 </Table.Cell>
-                <Table.Cell className="w-3/12 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                <Table.Cell className="w-3/12 whitespace-nowrap font-normal text-gray-700 dark:text-white">
                   {new Date(todo.inserted_at).toLocaleString()}
                 </Table.Cell>
                 <Table.Cell className="w-2/12">
-                  <DropDownTodoStatus />
+                  <DropDownTodoStatus todo={todo} />
                 </Table.Cell>
                 <Table.Cell className="flex w-1/12 justify-center">
                   <div>
                     <HiOutlinePencilAlt
                       cursor={'pointer'}
-                      className="mr-2 h-6 w-6 text-blue-600"
+                      className="mr-2 h-6 w-6 text-blue-500"
                       onClick={() => onItemClick(todo)}
                     />
                   </div>
                   <div>
                     <HiTrash
                       cursor={'pointer'}
-                      className="h-6 w-6 text-red-700 "
+                      className="h-6 w-6 text-red-500 "
                       onClick={() => onDeleteItemClick(todo.id)}
                     />
                   </div>

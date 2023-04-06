@@ -4,17 +4,18 @@ import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Database } from '@/types/database.types';
+type Todos = Database['public']['Tables']['todos']['Row'];
 
-export default function DropDownTodoStatus() {
+export default function DropDownTodoStatus({ todo }) {
   const queryClient = useQueryClient();
   const supabase = useSupabaseClient<Database>();
 
   const { mutate } = useMutation(
-    async (item: any) => {
+    async (item: string) => {
       const { data, error } = await supabase
         .from('todos')
-        .update({ status: item.status })
-        .match({ id: item.id });
+        .update({ status: item })
+        .match({ id: todo.id });
       if (error) {
         toast.error('Something went wrong');
         return error;
@@ -29,6 +30,13 @@ export default function DropDownTodoStatus() {
     },
   );
 
+  const colors = {
+    'To do': 'blue',
+    Done: 'success',
+    'In progress': 'warning',
+    'Wont done': 'failure',
+  };
+
   return (
     <Dropdown
       arrowIcon={false}
@@ -40,22 +48,42 @@ export default function DropDownTodoStatus() {
       positionInGroup="middle"
       title="Dropdown profile"
       trigger="click"
-      label={<Badge color="purple">To do</Badge>}
+      label={<Badge color={colors[todo.status]}>{todo.status}</Badge>}
     >
-      <ul className="pb- pt-1" role="none">
-        <li className="py-2 px-2">
-          <Badge color="purple">To do</Badge>
-        </li>
-        <li className="py-2 px-2">
-          <Badge color="yellow">In progress</Badge>
-        </li>
-        <li className="py-2 px-2">
-          <Badge color="green">Done</Badge>
-        </li>
-        <li className="py-2 px-2">
-          <Badge color="red">Won&apos;t do</Badge>
-        </li>
-      </ul>
+      <>
+        <Dropdown.Item
+          className="mb-1 flex justify-center bg-blue-300 text-center font-medium text-blue-700"
+          onClick={function noRefCheck() {
+            mutate('To do');
+          }}
+        >
+          To do
+        </Dropdown.Item>
+        <Dropdown.Item
+          className="mb-1 flex justify-center bg-yellow-300 text-center font-medium text-yellow-700"
+          onClick={function noRefCheck() {
+            mutate('In progress');
+          }}
+        >
+          In progress
+        </Dropdown.Item>
+        <Dropdown.Item
+          className="mb-1 flex justify-center bg-green-300 text-center font-medium text-green-700"
+          onClick={function noRefCheck() {
+            mutate('Done');
+          }}
+        >
+          Done
+        </Dropdown.Item>
+        <Dropdown.Item
+          className="flex justify-center bg-red-300 text-center font-medium text-red-700"
+          onClick={function noRefCheck() {
+            mutate('Wont done');
+          }}
+        >
+          Won&apos;t do
+        </Dropdown.Item>
+      </>
     </Dropdown>
   );
 }
