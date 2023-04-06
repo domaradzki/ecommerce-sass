@@ -2,6 +2,7 @@ import Layout from '@/components/Layout';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
+import AddIntegrationModal from '@/components/Integrations/AddIntegrationModal';
 
 export default function IntegrationsPage() {
   return (
@@ -15,8 +16,11 @@ export default function IntegrationsPage() {
                   Integrations
                 </h1>
               </div>
-              <div className="w-full shrink-0 divide-y">
-                <div className="grid grid-cols-3 justify-items-center gap-4 text-center">
+              <div className="my-2 w-full shrink-0 divide-y">
+                <div className="flex w-full justify-end">
+                  <AddIntegrationModal />
+                </div>
+                <div className="my-2 grid grid-cols-3 justify-items-center gap-4 text-center">
                   <div className="rounde-xl flex w-full justify-center border-zinc-600 p-8 shadow-lg">
                     01
                   </div>
