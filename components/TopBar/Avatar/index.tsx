@@ -86,7 +86,7 @@ export default function Avatar({
       )}
       <div style={{ width: size }}>
         <label
-          className="group my-4 flex flex h-min items-center items-center justify-center rounded-lg rounded-md border border-transparent bg-blue-700 p-0.5 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:z-10 focus:ring-4 focus:!ring-2 focus:ring-blue-300 disabled:hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:disabled:hover:bg-blue-600"
+          className="group my-4 flex h-min  items-center justify-center rounded-lg border border-transparent bg-blue-700 p-0.5 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:z-10 focus:ring-4  focus:ring-blue-300 disabled:hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:disabled:hover:bg-blue-600"
           htmlFor="single"
         >
           {uploading ? 'Uploading ...' : 'Upload'}

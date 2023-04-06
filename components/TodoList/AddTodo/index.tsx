@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { User } from '@supabase/supabase-js';
-import { Card, TextInput, ListGroup } from 'flowbite-react';
+import { TextInput } from 'flowbite-react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const AddTodo = () => {
