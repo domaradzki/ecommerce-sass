@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
 import { Toaster } from 'react-hot-toast';
-import AddTodo from '@/components/AddTodo';
-import Todos from '@/components/Todos';
+import AddTodo from '@/components/TodoList/AddTodo';
+import Todos from '@/components/TodoList/Todos';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
 
 export default function TodosPage() {

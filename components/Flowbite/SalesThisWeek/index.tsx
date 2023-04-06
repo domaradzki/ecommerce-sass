@@ -1,5 +1,5 @@
-import SalesChart from "@/components/SalesChart";
-import Datepicker from "@/components/DataPicker";
+import SalesChart from '@/components/Flowbite/SalesChart';
+import Datepicker from '@/components/Flowbite/DataPicker';
 
 export default function SalesThisWeek(): JSX.Element {
   return (

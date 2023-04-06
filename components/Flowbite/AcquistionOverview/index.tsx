@@ -1,5 +1,5 @@
-import Datepicker from "@/components/DataPicker";
-import { Table } from "flowbite-react";
+import Datepicker from '@/components/Flowbite/DataPicker';
+import { Table } from 'flowbite-react';
 
 export default function AcquisitionOverview(): JSX.Element {
   return (
@@ -38,7 +38,7 @@ export default function AcquisitionOverview(): JSX.Element {
                           <div className="h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
                             <div
                               className="bg-primary-700 h-2 rounded-sm"
-                              style={{ width: "30%" }}
+                              style={{ width: '30%' }}
                             />
                           </div>
                         </div>
@@ -59,7 +59,7 @@ export default function AcquisitionOverview(): JSX.Element {
                           <div className="h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
                             <div
                               className="h-2 rounded-sm bg-orange-300"
-                              style={{ width: "24%" }}
+                              style={{ width: '24%' }}
                             />
                           </div>
                         </div>
@@ -80,7 +80,7 @@ export default function AcquisitionOverview(): JSX.Element {
                           <div className="h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
                             <div
                               className="h-2 rounded-sm bg-teal-400"
-                              style={{ width: "18%" }}
+                              style={{ width: '18%' }}
                             />
                           </div>
                         </div>
@@ -101,7 +101,7 @@ export default function AcquisitionOverview(): JSX.Element {
                           <div className="h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
                             <div
                               className="h-2 rounded-sm bg-pink-600"
-                              style={{ width: "12%" }}
+                              style={{ width: '12%' }}
                             />
                           </div>
                         </div>
@@ -122,7 +122,7 @@ export default function AcquisitionOverview(): JSX.Element {
                           <div className="h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
                             <div
                               className="h-2 rounded-sm bg-indigo-600"
-                              style={{ width: "9%" }}
+                              style={{ width: '9%' }}
                             />
                           </div>
                         </div>
@@ -143,7 +143,7 @@ export default function AcquisitionOverview(): JSX.Element {
                           <div className="h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
                             <div
                               className="h-2 rounded-sm bg-purple-500"
-                              style={{ width: "7%" }}
+                              style={{ width: '7%' }}
                             />
                           </div>
                         </div>

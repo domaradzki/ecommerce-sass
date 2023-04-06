@@ -48,7 +48,7 @@ export default function Avatar({
       }
 
       const file = event.target.files[0];
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file?.name.split('.').pop();
       const fileName = `${uid}.${fileExt}`;
       const filePath = `${fileName}`;
 

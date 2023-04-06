@@ -1,4 +1,4 @@
-import Datepicker from "@/components/DataPicker";
+import Datepicker from '@/components/Flowbite/DataPicker';
 
 export default function LatestCustomers(): JSX.Element {
   return (

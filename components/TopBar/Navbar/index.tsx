@@ -3,10 +3,10 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { DarkThemeToggle, Navbar } from 'flowbite-react';
-import { useSignInModal } from '@/components/SignInModal';
-import DropDownNotification from '@/components//DropDownNotification';
-import DropDownApps from '@/components//DropDownApps';
-import DropDownProfile from '@/components//DropDownProfile';
+import { useSignInModal } from '@/components/TopBar/SignInModal';
+import DropDownNotification from '@/components/TopBar/DropDownNotification';
+import DropDownApps from '@/components/TopBar/DropDownApps';
+import DropDownProfile from '@/components/TopBar/DropDownProfile';
 
 const MainNavbar: FC = function () {
   const user = useUser();

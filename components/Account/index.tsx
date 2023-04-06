@@ -7,7 +7,7 @@ import {
 // import Avatar from './Avatar';
 
 import { Database } from '@/types/database.types';
-import Avatar from '../Avatar';
+import Avatar from '../TopBar/Avatar';
 import { Button, Label, TextInput } from 'flowbite-react';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 

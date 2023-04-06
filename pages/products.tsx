@@ -1,24 +1,18 @@
 import Layout from '@/components/Layout';
-import SalesThisWeek from '@/components/Flowbite/SalesThisWeek';
-import LatestCustomers from '@/components/Flowbite/LatestCustomers';
-import AcquisitionOverview from '@/components/Flowbite/AcquistionOverview';
-import LatestTransactions from '@/components/Flowbite/LatestTransactions';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
+import AllUsersTable from '@/components/Users/AllUsersTable';
+import AddUserModal from '@/components/Users/AddUserModal';
 
-export default function DashboardPage() {
+export default function ProductsPage() {
   return (
     <Layout>
       <ProtectedWrapper>
         <div className="px-4 pt-6">
-          <SalesThisWeek />
-          <div className="my-6">
-            <LatestTransactions />
-          </div>
-          <LatestCustomers />
-          <div className="my-6">
-            <AcquisitionOverview />
+          <div className="w-full rounded-lg p-6 shadow">
+            <AddUserModal />
+            <AllUsersTable />
           </div>
         </div>
       </ProtectedWrapper>

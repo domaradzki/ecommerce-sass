@@ -1,7 +1,7 @@
-import { Table, Badge } from "flowbite-react";
-import Datepicker from "@/components/DataPicker";
+import { Table, Badge } from 'flowbite-react';
+import Datepicker from '@/components/Flowbite/DataPicker';
 
-export default function LatestTransactions():JSX.Element {
+export default function LatestTransactions(): JSX.Element {
   return (
     <div className="rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-6 xl:p-8">
       <div className="mb-4 flex items-center justify-between">
@@ -39,7 +39,7 @@ export default function LatestTransactions():JSX.Element {
                 <Table.Body className="bg-white dark:bg-gray-800">
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">Bonnie Green</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -54,7 +54,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment refund to{" "}
+                      Payment refund to{' '}
                       <span className="font-semibold">#00910</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -69,7 +69,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment failed from{" "}
+                      Payment failed from{' '}
                       <span className="font-semibold">#087651</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -84,7 +84,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">Lana Byrd</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -101,7 +101,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">Jese Leos</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -116,7 +116,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">THEMESBERG LLC</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -131,7 +131,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">Lana Lysle</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -146,7 +146,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment to{" "}
+                      Payment to{' '}
                       <span className="font-semibold">Joseph Mcfall</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -161,7 +161,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">Alphabet LLC</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -178,7 +178,7 @@ export default function LatestTransactions():JSX.Element {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 dark:text-white">
-                      Payment from{" "}
+                      Payment from{' '}
                       <span className="font-semibold">Bonnie Green</span>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -224,4 +224,4 @@ export default function LatestTransactions():JSX.Element {
       </div>
     </div>
   );
-};
+}

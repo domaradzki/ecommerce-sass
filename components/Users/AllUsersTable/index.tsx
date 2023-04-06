@@ -1,7 +1,7 @@
-import { Checkbox, Label, Table } from "flowbite-react";
-import type { FC } from "react";
-import EditUserModal from "../EditUsersModal";
-import DeleteUserModal from "../DeleteUsersModal";
+import { Checkbox, Label, Table } from 'flowbite-react';
+import type { FC } from 'react';
+import EditUserModal from '../EditUsersModal';
+import DeleteUserModal from '../DeleteUsersModal';
 
 const AllUsersTable: FC = function () {
   return (
@@ -52,7 +52,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -100,7 +100,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -148,7 +148,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -196,7 +196,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -244,7 +244,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{' '}
               Offline
             </div>
           </Table.Cell>
@@ -292,7 +292,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -340,7 +340,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -388,7 +388,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -436,7 +436,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{' '}
               Offline
             </div>
           </Table.Cell>
@@ -484,7 +484,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -532,7 +532,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -580,7 +580,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -628,7 +628,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -676,7 +676,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -724,7 +724,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{' '}
               Offline
             </div>
           </Table.Cell>
@@ -773,7 +773,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -822,7 +822,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -870,7 +870,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>
@@ -918,7 +918,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-red-500"></div>{' '}
               Offline
             </div>
           </Table.Cell>
@@ -966,7 +966,7 @@ const AllUsersTable: FC = function () {
           </Table.Cell>
           <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 dark:text-white">
             <div className="flex items-center">
-              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{" "}
+              <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div>{' '}
               Active
             </div>
           </Table.Cell>

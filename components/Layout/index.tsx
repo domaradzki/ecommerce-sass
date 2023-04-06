@@ -2,7 +2,7 @@ import { Footer, Flowbite } from 'flowbite-react';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { FaDribbble, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MdFacebook } from 'react-icons/md';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/TopBar/Navbar';
 import Sidebar from '@/components/Sidebar';
 import Meta from './meta';
 
