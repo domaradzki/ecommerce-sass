@@ -1,6 +1,5 @@
 import Layout from '@/components/Layout';
-import { useMutation, useQueryClient } from 'react-query';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import AddTodo from '@/components/AddTodo';
 import Todos from '@/components/Todos';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
@@ -10,8 +9,10 @@ export default function TodosPage() {
     <Layout>
       <ProtectedWrapper>
         <div className="px-4 pt-6">
-          <Todos />
-          <AddTodo />
+          <div className="w-full rounded-lg p-6 shadow">
+            <Todos />
+            <AddTodo />
+          </div>
         </div>
         <Toaster />
       </ProtectedWrapper>

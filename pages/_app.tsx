@@ -37,18 +37,18 @@ export default function MyApp({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <MyUserContextProvider>
-        <RWBProvider>
-          <Flowbite theme={{ theme }}>
-            <div>
-              <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <MyUserContextProvider>
+          <RWBProvider>
+            <Flowbite theme={{ theme }}>
+              <div>
                 <Component {...pageProps} />
                 <ReactQueryDevtools initialIsOpen={false} />
-              </QueryClientProvider>
-            </div>
-          </Flowbite>
-        </RWBProvider>
-      </MyUserContextProvider>
+              </div>
+            </Flowbite>
+          </RWBProvider>
+        </MyUserContextProvider>
+      </QueryClientProvider>
     </SessionContextProvider>
   );
 }

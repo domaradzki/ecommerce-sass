@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import toast from 'react-hot-toast';
-import { Badge, Card, Spinner, Table, TextInput } from 'flowbite-react';
+import { Card, Spinner, Table, TextInput } from 'flowbite-react';
 import { HiOutlinePencilAlt, HiTrash } from 'react-icons/hi';
 
 import { Database } from '@/types/database.types';
@@ -19,7 +19,7 @@ const Todos = () => {
   const supabase = useSupabaseClient<Database>();
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError, isSuccess } = useQuery(
+  const { data, isLoading, isSuccess } = useQuery(
     'todos',
     async () => {
       const { data, error } = await supabase
@@ -112,85 +112,85 @@ const Todos = () => {
     );
   }
   return (
-    <>
-      <Table
-        striped
-        className="min-w-full divide-y divide-gray-200 dark:divide-gray-600"
-      >
-        <Table.Head className="bg-gray-50 dark:bg-gray-700">
-          <Table.HeadCell>Zadanie</Table.HeadCell>
-          <Table.HeadCell>Termin</Table.HeadCell>
-          <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell>Akcje</Table.HeadCell>
-        </Table.Head>
-        <Table.Body className="divide-y">
-          {isSuccess &&
-            data!.map((todo: any) => (
-              <Table.Row
-                key={todo.id}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+    <Table
+      striped
+      hoverable
+      theme={{}}
+      //   className="min-w-full divide-y divide-gray-200 dark:divide-gray-600"
+    >
+      <Table.Head className="bg-gray-50 dark:bg-gray-700">
+        <Table.HeadCell>Zadanie</Table.HeadCell>
+        <Table.HeadCell>Termin</Table.HeadCell>
+        <Table.HeadCell>Status</Table.HeadCell>
+        <Table.HeadCell>Akcje</Table.HeadCell>
+      </Table.Head>
+      <Table.Body className="divide-y">
+        {isSuccess &&
+          data!.map((todo: any) => (
+            <Table.Row
+              key={todo.id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell
+                className={`w-6/12 whitespace-nowrap font-medium text-gray-900 dark:text-white  ${
+                  selectedItem?.id === todo.id ? 'input-cell' : 'py-4'
+                }`}
+                onClick={() => {
+                  onItemClick(todo);
+                }}
               >
-                <Table.Cell
-                  className={`w-6/12 whitespace-nowrap font-medium text-gray-900 dark:text-white  ${
-                    selectedItem?.id === todo.id ? 'input-cell' : 'py-4'
-                  }`}
-                  onClick={() => {
-                    onItemClick(todo);
-                  }}
-                >
-                  {selectedItem?.id === todo.id ? (
-                    <TextInput
-                      type="text"
-                      autoFocus
-                      value={selectedItem?.task}
-                      onChange={(e) =>
-                        setSelectedItem({
-                          ...selectedItem!,
-                          task: e.target.value,
-                        })
+                {selectedItem?.id === todo.id ? (
+                  <TextInput
+                    type="text"
+                    autoFocus
+                    value={selectedItem?.task}
+                    onChange={(e) =>
+                      setSelectedItem({
+                        ...selectedItem!,
+                        task: e.target.value,
+                      })
+                    }
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        // Save changes to database
+                        updateMutation(selectedItem);
+                        setSelectedItem(undefined);
+                      } else if (e.key === 'Escape') {
+                        setSelectedItem(undefined);
                       }
-                      onClick={(e) => e.stopPropagation()}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          // Save changes to database
-                          updateMutation(selectedItem);
-                          setSelectedItem(undefined);
-                        } else if (e.key === 'Escape') {
-                          setSelectedItem(undefined);
-                        }
-                      }}
-                    />
-                  ) : (
-                    todo.task
-                  )}
-                </Table.Cell>
-                <Table.Cell className="w-3/12 whitespace-nowrap font-normal text-gray-700 dark:text-white">
-                  {new Date(todo.inserted_at).toLocaleString()}
-                </Table.Cell>
-                <Table.Cell className="w-2/12">
-                  <DropDownTodoStatus todo={todo} />
-                </Table.Cell>
-                <Table.Cell className="flex w-1/12 justify-center">
-                  <div>
-                    <HiOutlinePencilAlt
-                      cursor={'pointer'}
-                      className="mr-2 h-6 w-6 text-blue-500"
-                      onClick={() => onItemClick(todo)}
-                    />
-                  </div>
-                  <div>
-                    <HiTrash
-                      cursor={'pointer'}
-                      className="h-6 w-6 text-red-500 "
-                      onClick={() => onDeleteItemClick(todo.id)}
-                    />
-                  </div>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-        </Table.Body>
-      </Table>
-    </>
+                    }}
+                  />
+                ) : (
+                  todo.task
+                )}
+              </Table.Cell>
+              <Table.Cell className="w-3/12 whitespace-nowrap font-normal text-gray-700 dark:text-white">
+                {new Date(todo.inserted_at).toLocaleString()}
+              </Table.Cell>
+              <Table.Cell className="w-2/12">
+                <DropDownTodoStatus todo={todo} />
+              </Table.Cell>
+              <Table.Cell className="flex w-1/12 justify-center">
+                <div>
+                  <HiOutlinePencilAlt
+                    cursor={'pointer'}
+                    className="mr-2 h-6 w-6 text-blue-500"
+                    onClick={() => onItemClick(todo)}
+                  />
+                </div>
+                <div>
+                  <HiTrash
+                    cursor={'pointer'}
+                    className="h-6 w-6 text-red-500 "
+                    onClick={() => onDeleteItemClick(todo.id)}
+                  />
+                </div>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+      </Table.Body>
+    </Table>
   );
 };
 export default Todos;

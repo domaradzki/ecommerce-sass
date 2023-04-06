@@ -6,12 +6,16 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Database } from '@/types/database.types';
 type Todos = Database['public']['Tables']['todos']['Row'];
 
-export default function DropDownTodoStatus({ todo }) {
+export default function DropDownTodoStatus({ todo }: { todo: Todos }) {
   const queryClient = useQueryClient();
   const supabase = useSupabaseClient<Database>();
 
+  type ColorMap = {
+    [key in 'To do' | 'Done' | 'In progress' | 'Wont done']: string;
+  };
+
   const { mutate } = useMutation(
-    async (item: string) => {
+    async (item: Todos['status']) => {
       const { data, error } = await supabase
         .from('todos')
         .update({ status: item })
@@ -30,7 +34,11 @@ export default function DropDownTodoStatus({ todo }) {
     },
   );
 
-  const colors = {
+  const handleUpdateMutation = (status: Todos['status']) => {
+    mutate(status);
+  };
+
+  const colors: ColorMap = {
     'To do': 'blue',
     Done: 'success',
     'In progress': 'warning',
@@ -46,7 +54,7 @@ export default function DropDownTodoStatus({ todo }) {
       pill={false}
       placement="bottom"
       positionInGroup="middle"
-      title="Dropdown profile"
+      title="Dropdown status"
       trigger="click"
       label={<Badge color={colors[todo.status]}>{todo.status}</Badge>}
     >
@@ -54,7 +62,7 @@ export default function DropDownTodoStatus({ todo }) {
         <Dropdown.Item
           className="mb-1 flex justify-center bg-blue-300 text-center font-medium text-blue-700"
           onClick={function noRefCheck() {
-            mutate('To do');
+            handleUpdateMutation('To do');
           }}
         >
           To do
@@ -62,7 +70,7 @@ export default function DropDownTodoStatus({ todo }) {
         <Dropdown.Item
           className="mb-1 flex justify-center bg-yellow-300 text-center font-medium text-yellow-700"
           onClick={function noRefCheck() {
-            mutate('In progress');
+            handleUpdateMutation('In progress');
           }}
         >
           In progress
@@ -70,7 +78,7 @@ export default function DropDownTodoStatus({ todo }) {
         <Dropdown.Item
           className="mb-1 flex justify-center bg-green-300 text-center font-medium text-green-700"
           onClick={function noRefCheck() {
-            mutate('Done');
+            handleUpdateMutation('Done');
           }}
         >
           Done
@@ -78,7 +86,7 @@ export default function DropDownTodoStatus({ todo }) {
         <Dropdown.Item
           className="flex justify-center bg-red-300 text-center font-medium text-red-700"
           onClick={function noRefCheck() {
-            mutate('Wont done');
+            handleUpdateMutation('Wont done');
           }}
         >
           Won&apos;t do

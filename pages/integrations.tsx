@@ -1,25 +1,14 @@
 import Layout from '@/components/Layout';
-import SalesThisWeek from '@/components/SalesThisWeek';
-import LatestCustomers from '@/components/LatestCustomers';
-import AcquisitionOverview from '@/components/AcquistionOverview';
-import LatestTransactions from '@/components/LatestTransactions';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
 
-export default function DashboardPage() {
+export default function IntegrationsPage() {
   return (
     <Layout>
       <ProtectedWrapper>
         <div className="px-4 pt-6">
-          <SalesThisWeek />
-          <div className="my-6">
-            <LatestTransactions />
-          </div>
-          <LatestCustomers />
-          <div className="my-6">
-            <AcquisitionOverview />
-          </div>
+          <div className="w-full rounded-lg p-6 shadow">INTEGRATIONS</div>
         </div>
       </ProtectedWrapper>
     </Layout>

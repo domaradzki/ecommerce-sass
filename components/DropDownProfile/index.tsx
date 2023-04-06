@@ -6,6 +6,8 @@ import { LayoutDashboard, LogOut } from 'lucide-react';
 import Link from 'next/link';
 // import Image from 'next/image';
 import { Database } from '@/types/database.types';
+import Image from 'next/image';
+import type { ImageLoaderProps } from 'next/image';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 
 export default function DropDownProfile() {
@@ -13,7 +15,7 @@ export default function DropDownProfile() {
   const user = useUser();
   const [username, setUsername] = useState<Profiles['username']>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
-  const [profilImage, setProfilImage] = useState<Profiles['avatar_url']>(null);
+  const [profilImage, setProfilImage] = useState<ImageLoaderProps['src']>('');
 
   useEffect(() => {
     async function downloadImage(path: string) {
@@ -56,7 +58,7 @@ export default function DropDownProfile() {
       trigger="click"
       label={
         <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-gray-300 transition-all duration-75 focus:outline-none active:scale-95 sm:h-7 sm:w-7">
-          <img
+          <Image
             alt={username || 'alt'}
             src={profilImage}
             width={40}

@@ -33,7 +33,7 @@ body {
     'Helvetica', sans-serif;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
-  @apply text-white antialiased dark:bg-gray-900 dark:text-gray-300;
+  @apply bg-white text-gray-700 antialiased dark:bg-gray-900 dark:text-gray-300;
 }
 
 body {
