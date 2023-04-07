@@ -9,6 +9,44 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      integrations: {
+        Row: {
+          id: number
+          inserted_at: string
+          is_active: boolean | null
+          login: string | null
+          name: string | null
+          password: string | null
+          token: string | null
+          type: Database["public"]["Enums"]["integration_type"] | null
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          inserted_at?: string
+          is_active?: boolean | null
+          login?: string | null
+          name?: string | null
+          password?: string | null
+          token?: string | null
+          type?: Database["public"]["Enums"]["integration_type"] | null
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: number
+          inserted_at?: string
+          is_active?: boolean | null
+          login?: string | null
+          name?: string | null
+          password?: string | null
+          token?: string | null
+          type?: Database["public"]["Enums"]["integration_type"] | null
+          url?: string | null
+          user_id?: string
+        }
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -82,6 +120,15 @@ export interface Database {
     }
     Enums: {
       enum_todo_status: "To do" | "In progress" | "Done" | "Wont done"
+      integration_type:
+        | "wholesaler"
+        | "marketplace"
+        | "delivery"
+        | "finance"
+        | "shop"
+        | "erp"
+        | "print"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
