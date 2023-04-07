@@ -1,11 +1,12 @@
-import { Button, Label, Modal, TextInput } from "flowbite-react";
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import { HiPlus } from "react-icons/hi";
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
+import { HiPlus } from 'react-icons/hi';
 
 const AddUserModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const [data, setData] = useState('');
 
   useEffect(() => {
     setHasMounted(true);
@@ -26,7 +27,7 @@ const AddUserModal: FC = function () {
           Add user
         </div>
       </Button>
-      {typeof window !== "undefined" && (
+      {typeof window !== 'undefined' && (
         <Modal
           onClose={() => setOpen(false)}
           show={isOpen}
@@ -44,6 +45,7 @@ const AddUserModal: FC = function () {
                     id="firstName"
                     name="firstName"
                     placeholder="Bonnie"
+                    onChange={(e) => setData(e.target.value)}
                   />
                 </div>
               </div>
