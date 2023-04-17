@@ -10,7 +10,7 @@ const AddTodo = () => {
   const user = useUser();
   const supabaseClient = useSupabaseClient();
   const queryClient = useQueryClient();
-  console.log('add', user);
+
   const { mutate: addTodoMutation } = useMutation(
     async (payload: { item: string; user: User }) => {
       const { data, error } = await supabaseClient.from('todos').insert([
@@ -37,7 +37,7 @@ const AddTodo = () => {
   };
   return (
     <TextInput
-      type={'text'}
+      type="text"
       value={currentItem}
       placeholder="Enter item here"
       className="mt-1"

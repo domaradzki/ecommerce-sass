@@ -11,11 +11,12 @@ export interface Database {
     Tables: {
       integrations: {
         Row: {
-          id: number
+          id: string
           inserted_at: string
           is_active: boolean | null
           login: string | null
-          name: string | null
+          logo: string | null
+          name: string
           password: string | null
           token: string | null
           type: Database["public"]["Enums"]["integration_type"] | null
@@ -23,11 +24,12 @@ export interface Database {
           user_id: string
         }
         Insert: {
-          id?: number
+          id?: string
           inserted_at?: string
           is_active?: boolean | null
           login?: string | null
-          name?: string | null
+          logo?: string | null
+          name: string
           password?: string | null
           token?: string | null
           type?: Database["public"]["Enums"]["integration_type"] | null
@@ -35,11 +37,12 @@ export interface Database {
           user_id: string
         }
         Update: {
-          id?: number
+          id?: string
           inserted_at?: string
           is_active?: boolean | null
           login?: string | null
-          name?: string | null
+          logo?: string | null
+          name?: string
           password?: string | null
           token?: string | null
           type?: Database["public"]["Enums"]["integration_type"] | null
