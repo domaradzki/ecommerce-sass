@@ -1,13 +1,13 @@
 import Layout from '@/components/Layout';
+import { Toaster } from 'react-hot-toast';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useQuery } from 'react-query';
+
 import ProtectedWrapper from '@/components/ProtectedWrapper';
 import AddIntegrationModal from '@/components/Integrations/AddIntegrationModal';
 import { useUser } from '@/utils/hooks/useUser';
 import { Database } from '@/types/database.types';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-
-import { useQuery } from 'react-query';
 import CardIntegration from '@/components/Integrations/CardIntegration';
-import EditIntegrationModal from '@/components/Integrations/EditIntegrationModal';
 
 export default function IntegrationsPage() {
   const supabase = useSupabaseClient<Database>();
@@ -32,7 +32,6 @@ export default function IntegrationsPage() {
     },
   );
 
-  console.log(data);
   return (
     <Layout>
       <ProtectedWrapper>
@@ -61,6 +60,7 @@ export default function IntegrationsPage() {
           </div>
         </div>
         <AddIntegrationModal />
+        <Toaster />
       </ProtectedWrapper>
     </Layout>
   );

@@ -2,19 +2,18 @@ import { Button, Label, TextInput } from 'flowbite-react';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { User } from '@supabase/supabase-js';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { Database } from '@/types/database.types';
 import { useCustomModal } from '@/components/CustomModal';
 import CustomLogo from '@/components/CustomLogo';
-import GetImage from '@/components/GetImage';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
 export default function EditIntegrationModal({ item }: { item: Integrations }) {
   const { CustomModal, setShowCustomModal } = useCustomModal();
   const queryClient = useQueryClient();
-  const supabaseClient = useSupabaseClient();
+  const supabase = useSupabaseClient();
   const user = useUser();
+  const { id } = item;
 
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState<Integrations['name']>('');
@@ -34,60 +33,32 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
     setType(type);
   }, [item]);
 
-  // const { mutate: addIntegrationMutation } = useMutation(
-  //   async (payload: {
-  //     name: Integrations['name'];
-  //     login: Integrations['login'];
-  //     password: Integrations['password'];
-  //     url: Integrations['url'];
-  //     type: Integrations['type'];
-  //     logo: Integrations['logo'];
-  //     user: User;
-  //   }) => {
-  //     const { data, error } = await supabaseClient.from('integrations').insert([
-  //       {
-  //         name: payload.name,
-  //         login: payload.login,
-  //         password: payload.password,
-  //         url: payload.url,
-  //         type: payload.type,
-  //         logo: payload.logo,
-  //         user_id: payload.user.id,
-  //       },
-  //     ]);
-  //     if (error) {
-  //       console.log('Error', error);
-  //     }
-  //     return data;
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       toast.success('Integration added successfully');
-  //       setName('');
-  //       setLogin('');
-  //       setPassword('');
-  //       setUrl('');
-  //       setLogo('');
-  //       setType(null);
-
-  //       return queryClient.invalidateQueries('integrations');
-  //     },
-  //   },
-  // );
-
-  // const hanleSubmitIntegration = async (): Promise<void> => {
-  //   addIntegrationMutation({
-  //     name,
-  //     login,
-  //     password,
-  //     url,
-  //     type,
-  //     logo,
-  //     user: user!,
-  //   });
-  //   setShowCustomModal(false);
-  // };
-  console.log('editModal', item, logo);
+  const { data, mutate: updateMutation } = useMutation(
+    async (integration: any) => {
+      const { data, error } = await supabase
+        .from('integrations')
+        .upsert({ name: integration.name })
+        .match({ id: integration.id });
+      if (error) {
+        toast.error('Something went wrong');
+        return error;
+      }
+      return data;
+    },
+    {
+      onSuccess: () => {
+        toast.success('Integration Updated successfully');
+        console.log(data);
+        setShowCustomModal(false);
+        return queryClient.refetchQueries('integrations');
+      },
+    },
+  );
+  const handleUpdate = (integration: any) => {
+    updateMutation({ id, integration });
+    console.log('inHandleeUPd', integration, 'id:', id);
+  };
+  console.log(data);
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
       <Button
@@ -102,12 +73,6 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
         <div className="flex flex-col gap-4 px-4 py-6">
           <div className="grid grid-cols-2 items-end gap-6 sm:grid-cols-2">
             <div>
-              {/* <GetImage item={logo} src="logo" /> */}
-              {/* <img
-                className="mb-3 h-32 w-32 rounded-full object-contain shadow-lg"
-                src={logo}
-                alt={name}
-              /> */}
               <CustomLogo
                 url={logo}
                 size={160}
@@ -140,7 +105,6 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setType(e.target.value as Integrations['type'])
                   }
-                  defaultValue={item.type}
                   id="type"
                   name="type"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -200,7 +164,16 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
             </div>
             <div>
               <Button
-                // onClick={hanleSubmitIntegration}
+                onClick={() =>
+                  handleUpdate({
+                    name,
+                    login,
+                    password,
+                    url,
+                    type,
+                    logo,
+                  })
+                }
                 disabled={loading}
                 color="dark"
                 className="w-40 items-center justify-center rounded-md border border-gray-300 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
