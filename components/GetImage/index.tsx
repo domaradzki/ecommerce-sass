@@ -27,8 +27,8 @@ export default function GetImage({
       }
     }
 
-    if (item && !logo) downloadImage(item);
-  }, []);
+    if (item) downloadImage(item);
+  }, [item, src]);
   return (
     <img
       className="mb-3 h-32 w-32 rounded-full object-contain shadow-lg"

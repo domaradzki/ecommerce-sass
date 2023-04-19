@@ -3,22 +3,19 @@ import { Database } from '@/types/database.types';
 
 import EditIntegrationModal from '../EditIntegrationModal';
 import GetImage from '@/components/GetImage';
+import { useState } from 'react';
 
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
 export default function CardIntegration({ item }: { item: Integrations }) {
+  const [logo, setLogo] = useState(item.logo);
   return (
     <Card>
       <div className="flex justify-end px-4 pt-2">
-        <EditIntegrationModal item={item} />
+        <EditIntegrationModal item={item} setNewLogo={setLogo} />
       </div>
       <div className="flex flex-col items-center pb-2">
-        <GetImage item={item.logo} src="logo" />
-        {/* <img
-          className="mb-3 h-32 w-32 rounded-full object-contain shadow-lg"
-          src={logo}
-          alt={name}
-        /> */}
+        <GetImage item={logo} src="logo" />
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
           {item.name}
         </h5>

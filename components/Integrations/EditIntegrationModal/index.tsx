@@ -2,45 +2,89 @@ import { Button, Label, TextInput } from 'flowbite-react';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, FC } from 'react';
 import { Database } from '@/types/database.types';
 import { useCustomModal } from '@/components/CustomModal';
 import CustomLogo from '@/components/CustomLogo';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
-export default function EditIntegrationModal({ item }: { item: Integrations }) {
+export default function EditIntegrationModal({
+  item,
+  setNewLogo,
+}: {
+  item: Integrations;
+  setNewLogo: (logo: string) => void;
+}) {
   const { CustomModal, setShowCustomModal } = useCustomModal();
   const queryClient = useQueryClient();
   const supabase = useSupabaseClient();
   const user = useUser();
-  const { id } = item;
+  const [selectedItem, setSelectedItem] = useState<Integrations>(item);
+  // const { id } = item;
 
-  const [loading, setLoading] = useState(false);
-  const [name, setName] = useState<Integrations['name']>('');
-  const [login, setLogin] = useState<Integrations['login']>(null);
-  const [password, setPassword] = useState<Integrations['password']>(null);
-  const [url, setUrl] = useState<Integrations['url']>(null);
-  const [logo, setLogo] = useState<Integrations['logo']>(null);
-  const [type, setType] = useState<Integrations['type']>(null);
+  // const [loading, setLoading] = useState(false);
+  // const [name, setName] = useState<Integrations['name']>('');
+  // const [login, setLogin] = useState<Integrations['login']>(null);
+  // const [password, setPassword] = useState<Integrations['password']>(null);
+  // const [url, setUrl] = useState<Integrations['url']>(null);
+  // const [logo, setLogo] = useState<Integrations['logo']>(null);
+  // const [type, setType] = useState<Integrations['type']>(null);
 
+  // useEffect(() => {
+  //   const { name, login, password, url, type, logo } = item;
+  //   setName(name);
+  //   setLogin(login);
+  //   setPassword(password);
+  //   setUrl(url);
+  //   setLogo(logo);
+  //   setType(type);
+  // }, [item]);
+
+  // const { data, mutate: updateMutation } = useMutation(
+  //   async (integration: any) => {
+  //     const { data, error } = await supabase
+  //       .from('integrations')
+  //       .upsert({ name: integration.name })
+  //       .match({ id: integration.id });
+  //     if (error) {
+  //       toast.error('Something went wrong');
+  //       return error;
+  //     }
+  //     return data;
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       toast.success('Integration Updated successfully');
+  //       console.log(data);
+  //       setShowCustomModal(false);
+  //       return queryClient.refetchQueries('integrations');
+  //     },
+  //   },
+  // );
+  const handleUpdate = () => {
+    updateMutation(selectedItem);
+    setShowCustomModal(false);
+  };
+  // console.log(data);
   useEffect(() => {
-    const { name, login, password, url, type, logo } = item;
-    setName(name);
-    setLogin(login);
-    setPassword(password);
-    setUrl(url);
-    setLogo(logo);
-    setType(type);
+    setSelectedItem(item);
   }, [item]);
 
-  const { data, mutate: updateMutation } = useMutation(
-    async (integration: any) => {
+  const { mutate: updateMutation } = useMutation(
+    async (item: any) => {
       const { data, error } = await supabase
         .from('integrations')
-        .upsert({ name: integration.name })
-        .match({ id: integration.id });
+        .update({
+          name: item.name,
+          login: item.login,
+          password: item.password,
+          url: item.url,
+          type: item.type,
+          logo: item.logo,
+        })
+        .match({ id: item.id });
       if (error) {
-        toast.error('Something went wrong');
+        toast.error('Something went wrong in integration update');
         return error;
       }
       return data;
@@ -48,17 +92,10 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
     {
       onSuccess: () => {
         toast.success('Integration Updated successfully');
-        console.log(data);
-        setShowCustomModal(false);
         return queryClient.refetchQueries('integrations');
       },
     },
   );
-  const handleUpdate = (integration: any) => {
-    updateMutation({ id, integration });
-    console.log('inHandleeUPd', integration, 'id:', id);
-  };
-  console.log(data);
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
       <Button
@@ -74,10 +111,11 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
           <div className="grid grid-cols-2 items-end gap-6 sm:grid-cols-2">
             <div>
               <CustomLogo
-                url={logo}
+                url={selectedItem?.logo}
                 size={160}
                 onUpload={(url) => {
-                  setLogo(url);
+                  setSelectedItem({ ...selectedItem!, logo: url });
+                  setNewLogo(url);
                 }}
               />
             </div>
@@ -90,10 +128,15 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
                   key="name"
                   required={true}
                   shadow={true}
-                  value={name || ''}
+                  value={selectedItem?.name}
                   type="text"
                   placeholder="App name"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) =>
+                    setSelectedItem({
+                      ...selectedItem!,
+                      name: e.target.value,
+                    })
+                  }
                   autoFocus
                 />
               </div>
@@ -103,7 +146,10 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
               <div className="mt-1">
                 <select
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setType(e.target.value as Integrations['type'])
+                    setSelectedItem({
+                      ...selectedItem!,
+                      type: e.target.value as Integrations['type'],
+                    })
                   }
                   id="type"
                   name="type"
@@ -129,8 +175,13 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
                   key="url"
                   placeholder="https://domain.com"
                   type="url"
-                  value={url || ''}
-                  onChange={(e) => setUrl(e.target.value)}
+                  value={selectedItem?.url || ''}
+                  onChange={(e) =>
+                    setSelectedItem({
+                      ...selectedItem!,
+                      url: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
@@ -143,8 +194,13 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
                   key="login"
                   placeholder="Login"
                   type="text"
-                  value={login || ''}
-                  onChange={(e) => setLogin(e.target.value)}
+                  value={selectedItem?.login || ''}
+                  onChange={(e) =>
+                    setSelectedItem({
+                      ...selectedItem!,
+                      login: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
@@ -157,28 +213,25 @@ export default function EditIntegrationModal({ item }: { item: Integrations }) {
                   key="password"
                   placeholder="Hasło"
                   type="password"
-                  value={password || ''}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={selectedItem?.password || ''}
+                  onChange={(e) =>
+                    setSelectedItem({
+                      ...selectedItem!,
+                      password: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
             <div>
               <Button
-                onClick={() =>
-                  handleUpdate({
-                    name,
-                    login,
-                    password,
-                    url,
-                    type,
-                    logo,
-                  })
-                }
-                disabled={loading}
+                onClick={handleUpdate}
+                // disabled={loading}
                 color="dark"
                 className="w-40 items-center justify-center rounded-md border border-gray-300 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
               >
-                {loading ? 'Loading ...' : 'Update'}
+                Update!!
+                {/* {loading ? 'Loading ...' : 'Update'} */}
               </Button>
             </div>
           </div>
