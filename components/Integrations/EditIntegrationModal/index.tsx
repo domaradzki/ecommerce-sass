@@ -1,7 +1,7 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useState, ChangeEvent, useEffect, FC } from 'react';
 import { Database } from '@/types/database.types';
 import { useCustomModal } from '@/components/CustomModal';
@@ -18,54 +18,13 @@ export default function EditIntegrationModal({
   const { CustomModal, setShowCustomModal } = useCustomModal();
   const queryClient = useQueryClient();
   const supabase = useSupabaseClient();
-  const user = useUser();
   const [selectedItem, setSelectedItem] = useState<Integrations>(item);
-  // const { id } = item;
 
-  // const [loading, setLoading] = useState(false);
-  // const [name, setName] = useState<Integrations['name']>('');
-  // const [login, setLogin] = useState<Integrations['login']>(null);
-  // const [password, setPassword] = useState<Integrations['password']>(null);
-  // const [url, setUrl] = useState<Integrations['url']>(null);
-  // const [logo, setLogo] = useState<Integrations['logo']>(null);
-  // const [type, setType] = useState<Integrations['type']>(null);
-
-  // useEffect(() => {
-  //   const { name, login, password, url, type, logo } = item;
-  //   setName(name);
-  //   setLogin(login);
-  //   setPassword(password);
-  //   setUrl(url);
-  //   setLogo(logo);
-  //   setType(type);
-  // }, [item]);
-
-  // const { data, mutate: updateMutation } = useMutation(
-  //   async (integration: any) => {
-  //     const { data, error } = await supabase
-  //       .from('integrations')
-  //       .upsert({ name: integration.name })
-  //       .match({ id: integration.id });
-  //     if (error) {
-  //       toast.error('Something went wrong');
-  //       return error;
-  //     }
-  //     return data;
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       toast.success('Integration Updated successfully');
-  //       console.log(data);
-  //       setShowCustomModal(false);
-  //       return queryClient.refetchQueries('integrations');
-  //     },
-  //   },
-  // );
   const handleUpdate = () => {
     updateMutation(selectedItem);
     setShowCustomModal(false);
   };
-  // console.log(data);
+
   useEffect(() => {
     setSelectedItem(item);
   }, [item]);
@@ -81,6 +40,8 @@ export default function EditIntegrationModal({
           url: item.url,
           type: item.type,
           logo: item.logo,
+          xmlFull: item.xmlFull,
+          xmlBase: item.xmlBase,
         })
         .match({ id: item.id });
       if (error) {
@@ -195,6 +156,7 @@ export default function EditIntegrationModal({
                   placeholder="Login"
                   type="text"
                   value={selectedItem?.login || ''}
+                  autoComplete="off"
                   onChange={(e) =>
                     setSelectedItem({
                       ...selectedItem!,
@@ -214,6 +176,7 @@ export default function EditIntegrationModal({
                   placeholder="Hasło"
                   type="password"
                   value={selectedItem?.password || ''}
+                  autoComplete="off"
                   onChange={(e) =>
                     setSelectedItem({
                       ...selectedItem!,
@@ -223,6 +186,48 @@ export default function EditIntegrationModal({
                 />
               </div>
             </div>
+            {selectedItem.type === 'wholesaler' && (
+              <>
+                <div>
+                  <Label htmlFor="xmlFull">XML Full</Label>
+                  <div className="mt-1">
+                    <TextInput
+                      id="xmlFull"
+                      name="xmlFull"
+                      key="xmlFull"
+                      type="text"
+                      placeholder="XML full url"
+                      value={selectedItem?.xml_full || ''}
+                      onChange={(e) =>
+                        setSelectedItem({
+                          ...selectedItem!,
+                          xml_full: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="xmlBase">XML Base</Label>
+                  <div className="mt-1">
+                    <TextInput
+                      id="xmlBase"
+                      name="xmlBase"
+                      key="xmlBase"
+                      type="text"
+                      placeholder="XML base url"
+                      value={selectedItem?.xml_base || ''}
+                      onChange={(e) =>
+                        setSelectedItem({
+                          ...selectedItem!,
+                          xml_base: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+              </>
+            )}
             <div>
               <Button
                 onClick={handleUpdate}

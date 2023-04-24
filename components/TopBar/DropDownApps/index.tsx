@@ -29,7 +29,7 @@ export default function DropDownApps() {
     >
       {/* <!-- Dropdown menu --> */}
       <div
-        className="z-20 z-50 my-4 max-w-sm list-none divide-y divide-gray-100 overflow-hidden rounded bg-white text-base shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+        className="z-50 my-4 max-w-sm list-none divide-y divide-gray-100 overflow-hidden rounded bg-white text-base shadow-lg dark:divide-gray-600 dark:bg-gray-700"
         id="apps-dropdown"
       >
         <div className="block bg-gray-50 px-4 py-2 text-center text-base font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-400">

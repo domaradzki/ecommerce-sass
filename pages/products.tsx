@@ -2,8 +2,8 @@ import Layout from '@/components/Layout';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
-import AllUsersTable from '@/components/Users/AllUsersTable';
-import AddUserModal from '@/components/Users/AddUserModal';
+import ProductsTable from '@/components/Products/ProductsTable';
+import SourceProducts from '@/components/Products/SourceProducts';
 
 export default function ProductsPage() {
   return (
@@ -11,8 +11,8 @@ export default function ProductsPage() {
       <ProtectedWrapper>
         <div className="px-4 pt-6">
           <div className="w-full rounded-lg p-6 shadow">
-            <AddUserModal />
-            <AllUsersTable />
+            <SourceProducts />
+            <ProductsTable />
           </div>
         </div>
       </ProtectedWrapper>

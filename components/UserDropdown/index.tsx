@@ -8,11 +8,8 @@ import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants';
 import Link from 'next/link';
 
 export default function UserDropdown() {
-  //   const { data: session } = useSession();
-  //   const { email, image } = session?.user || {};
   const [openPopover, setOpenPopover] = useState(false);
 
-  //   if (!email) return null;
   const email = 'email@wp.pl';
   const image = 'email@wp.pl';
 

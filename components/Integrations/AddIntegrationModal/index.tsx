@@ -23,6 +23,8 @@ export default function AddIntegrationModal() {
   const [url, setUrl] = useState<Integrations['url']>(null);
   const [logo, setLogo] = useState<Integrations['logo']>(null);
   const [type, setType] = useState<Integrations['type']>(null);
+  const [xmlFull, setXmlFull] = useState<Integrations['xml_full']>(null);
+  const [xmlBase, setXmlBase] = useState<Integrations['xml_base']>(null);
 
   const { mutate: addIntegrationMutation } = useMutation(
     async (payload: {
@@ -32,6 +34,8 @@ export default function AddIntegrationModal() {
       url: Integrations['url'];
       type: Integrations['type'];
       logo: Integrations['logo'];
+      xmlFull: Integrations['xml_full'];
+      xmlBase: Integrations['xml_base'];
       user: User;
     }) => {
       const { data, error } = await supabaseClient.from('integrations').insert([
@@ -43,6 +47,8 @@ export default function AddIntegrationModal() {
           type: payload.type,
           logo: payload.logo,
           user_id: payload.user.id,
+          xml_full: payload.xmlFull,
+          xml_base: payload.xmlBase,
         },
       ]);
       if (error) {
@@ -59,6 +65,8 @@ export default function AddIntegrationModal() {
         setUrl('');
         setLogo('');
         setType(null);
+        setXmlFull('');
+        setXmlBase('');
 
         return queryClient.invalidateQueries('integrations');
       },
@@ -73,6 +81,8 @@ export default function AddIntegrationModal() {
       url,
       type,
       logo,
+      xmlBase,
+      xmlFull,
       user: user!,
     });
     setShowCustomModal(false);
@@ -164,6 +174,7 @@ export default function AddIntegrationModal() {
                   placeholder="Login"
                   value={login || ''}
                   onChange={(e) => setLogin(e.target.value)}
+                  autoComplete="off"
                 />
               </div>
             </div>
@@ -178,9 +189,42 @@ export default function AddIntegrationModal() {
                   placeholder="Hasło"
                   value={password || ''}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="off"
                 />
               </div>
             </div>
+            {type === 'wholesaler' && (
+              <>
+                <div>
+                  <Label htmlFor="xmlFull">XML Full</Label>
+                  <div className="mt-1">
+                    <TextInput
+                      id="xmlFull"
+                      name="xmlFull"
+                      key="xmlFull"
+                      type="text"
+                      placeholder="XML full url"
+                      value={xmlFull || ''}
+                      onChange={(e) => setXmlFull(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="xmlBase">XML Base</Label>
+                  <div className="mt-1">
+                    <TextInput
+                      id="xmlBase"
+                      name="xmlBase"
+                      key="xmlBase"
+                      type="text"
+                      placeholder="XML base url"
+                      value={xmlBase || ''}
+                      onChange={(e) => setXmlBase(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
             <div>
               <Button
                 onClick={hanleSubmitIntegration}
