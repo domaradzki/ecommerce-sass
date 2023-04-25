@@ -35,7 +35,8 @@ const SourceProducts: FC = function () {
     },
   );
   console.log(data);
-
+  const wholeseler = data?.filter((item) => item.id === integration);
+  console.log(wholeseler?.[0]);
   return (
     <div>
       <Label htmlFor="integration">Źródło produktów</Label>
@@ -46,7 +47,7 @@ const SourceProducts: FC = function () {
           }
           id="integration"
           name="integration"
-          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          className="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-gray-500 dark:focus:ring-gray-500"
         >
           {data?.map((item) => (
             <option key={item.id} value={item.id}>
