@@ -14,7 +14,7 @@ const SourceProducts: FC = function () {
   const [integration, setIntegration] = useState<Integrations['id'] | null>(
     null,
   );
-  const [xmlFile, setXmlFile] = useState<Integrations['xml_full']>(null);
+  const [xmlFile, setXmlFile] = useState<Integrations['xml_full']>('');
   const [jsonData, setData] = useState([]);
   const { user } = useUser();
 
@@ -41,20 +41,27 @@ const SourceProducts: FC = function () {
     const wholeseler = data?.filter((item) => item.id === integration);
     console.log(wholeseler?.[0]);
     const xml = wholeseler?.[0]?.xml_full as Integrations['xml_full'];
+    console.log('xml', xml);
+
     setXmlFile(xml);
   }, [data, integration]);
+  console.log('xmlFile', xmlFile);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(xmlFile);
+      const response = await fetch(xmlFile, {
+        referrerPolicy: 'no-referrer-when-downgrade',
+      });
       const xmlData = await response.text();
       const jsonData = await parseStringPromise(xmlData, {
         explicitArray: false,
       });
       setData(jsonData.records.record);
     }
-    fetchData();
-  }, [integration, xmlFile]);
+    if (xmlFile) {
+      fetchData();
+    }
+  }, [xmlFile]);
   console.log(jsonData);
   return (
     <div>
