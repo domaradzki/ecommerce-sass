@@ -1,7 +1,6 @@
 import { Label } from 'flowbite-react';
 import { ChangeEvent, FC, useEffect } from 'react';
 import { useState } from 'react';
-import { parseStringPromise } from 'xml2js';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import { useUser } from '@/utils/hooks/useUser';
@@ -9,12 +8,12 @@ import { Database } from '@/types/database.types';
 import { useQuery } from 'react-query';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
-const SourceProducts: FC = function () {
+const SourceProducts: FC = async function () {
   const supabase = useSupabaseClient<Database>();
   const [integration, setIntegration] = useState<Integrations['id'] | null>(
     null,
   );
-  const [xmlFile, setXmlFile] = useState<Integrations['xml_full']>('');
+  // const [xmlFile, setXmlFile] = useState<Integrations['xml_full']>('');
   const [jsonData, setData] = useState([]);
   const { user } = useUser();
 
@@ -35,34 +34,26 @@ const SourceProducts: FC = function () {
       enabled: !!user, // Only run the query if user is defined
     },
   );
-  console.log(data);
+  console.log('int', data);
 
-  useEffect(() => {
-    const wholeseler = data?.filter((item) => item.id === integration);
-    console.log(wholeseler?.[0]);
-    const xml = wholeseler?.[0]?.xml_full as Integrations['xml_full'];
-    console.log('xml', xml);
+  // useEffect(() => {
+  //   const wholeseler = data?.filter((item) => item.id === integration);
+  //   console.log(wholeseler?.[0]);
+  //   const xml = wholeseler?.[0]?.xml_full as Integrations['xml_full'];
+  //   console.log('xml', xml);
 
-    setXmlFile(xml);
-  }, [data, integration]);
-  console.log('xmlFile', xmlFile);
+  //   setXmlFile(xml);
+  // }, [data, integration]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(xmlFile, {
-        referrerPolicy: 'no-referrer-when-downgrade',
-      });
-      const xmlData = await response.text();
-      const jsonData = await parseStringPromise(xmlData, {
-        explicitArray: false,
-      });
-      setData(jsonData.records.record);
-    }
-    if (xmlFile) {
-      fetchData();
-    }
-  }, [xmlFile]);
-  console.log(jsonData);
+  async function fetchData() {
+    const response = await fetch('http://localhost:3000/api/ikonka');
+    const data = await response.json();
+    return data;
+  }
+
+  const products = await fetchData();
+  console.log(products);
+
   return (
     <div>
       <Label htmlFor="integration">Źródło produktów</Label>

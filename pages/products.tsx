@@ -4,6 +4,7 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import ProtectedWrapper from '@/components/ProtectedWrapper';
 import ProductsTable from '@/components/Products/ProductsTable';
 import SourceProducts from '@/components/Products/SourceProducts';
+import { parseStringPromise } from 'xml2js';
 
 export default function ProductsPage() {
   return (
@@ -41,3 +42,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     },
   };
 };
+
+// export async function getServerSideProps() {
+//   const res = await fetch(
+//     'https://api.ikonka.com.pl/api2/index.php/request/?format=xml&hash=4b30b263734ce71f3fa5c5042440c160b015e10e&variant=b&lang=pl&currency=PLN',
+//     // 'https://www.gimmik.net/?id=sklep&mode=userpanel&act=data_export&ext=dl&r=1&s=55&hydk=AEGMPPQ0VNZ1',
+//   );
+//   const items = await res.text();
+//   const jsonData = await parseStringPromise(items, {
+//     explicitArray: false,
+//   });
+//   return {
+//     props: { jsonData },
+//   };
+// }
