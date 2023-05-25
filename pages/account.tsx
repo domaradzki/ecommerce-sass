@@ -1,8 +1,8 @@
 import { useSession } from '@supabase/auth-helpers-react';
-import Layout from '@/components/Layout';
-import LoadingDots from '@/components/ui/LoadingDots';
-import Account from '@/components/Account';
-import ProtectedWrapper from '@/components/ProtectedWrapper';
+import Layout from 'src/app/components/Layout';
+import LoadingDots from 'src/app/components/ui/LoadingDots';
+import Account from 'src/app/components/Account';
+import ProtectedWrapper from 'src/app/components/ProtectedWrapper';
 
 export default function AccountPage() {
   const session = useSession();

@@ -1,8 +1,8 @@
-import Layout from '@/components/Layout';
+import Layout from 'src/app/components/Layout';
 import { Toaster } from 'react-hot-toast';
-import AddTodo from '@/components/TodoList/AddTodo';
-import Todos from '@/components/TodoList/Todos';
-import ProtectedWrapper from '@/components/ProtectedWrapper';
+import AddTodo from 'src/app/components/TodoList/AddTodo';
+import Todos from 'src/app/components/TodoList/Todos';
+import ProtectedWrapper from 'src/app/components/ProtectedWrapper';
 
 export default function TodosPage() {
   return (

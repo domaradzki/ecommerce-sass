@@ -1,13 +1,13 @@
-import Layout from '@/components/Layout';
+import Layout from 'src/app/components/Layout';
 import { Toaster } from 'react-hot-toast';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useQuery } from 'react-query';
 
-import ProtectedWrapper from '@/components/ProtectedWrapper';
-import AddIntegrationModal from '@/components/Integrations/AddIntegrationModal';
+import ProtectedWrapper from 'src/app/components/ProtectedWrapper';
+import AddIntegrationModal from 'src/app/components/Integrations/AddIntegrationModal';
 import { useUser } from '@/utils/hooks/useUser';
 import { Database } from '@/types/database.types';
-import CardIntegration from '@/components/Integrations/CardIntegration';
+import CardIntegration from 'src/app/components/Integrations/CardIntegration';
 
 export default function IntegrationsPage() {
   const supabase = useSupabaseClient<Database>();

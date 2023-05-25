@@ -1,12 +1,12 @@
-import Card from '@/components/Card';
+import Card from 'src/app/components/Card';
 import Balancer from 'react-wrap-balancer';
 import { motion } from 'framer-motion';
 import { DEPLOY_URL, FADE_DOWN_ANIMATION_VARIANTS } from '@/utils/constants';
-import { Github, Twitter } from '@/components/shared/icons';
-import WebVitals from '@/components/WebVitals';
-import ComponentGrid from '@/components/ComponentGrid';
+import { Github, Twitter } from 'src/app/components/shared/icons';
+import WebVitals from 'src/app/components/WebVitals';
+import ComponentGrid from 'src/app/components/ComponentGrid';
 import Image from 'next/image';
-import Layout from '@/components/Layout';
+import Layout from 'src/app/components/Layout';
 
 export default function Home() {
   return (

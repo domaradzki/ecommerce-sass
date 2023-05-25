@@ -1,7 +1,7 @@
-import Layout from '@/components/Layout';
+import Layout from 'src/app/components/Layout';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import AuctionsTable from '@/components/AuctionsTable';
+import AuctionsTable from 'src/app/components/AuctionsTable';
 
 export default function AuctionsPage() {
   return (

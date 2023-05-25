@@ -1,11 +1,11 @@
-import Layout from '@/components/Layout';
-import SalesThisWeek from '@/components/Flowbite/SalesThisWeek';
-import LatestCustomers from '@/components/Flowbite/LatestCustomers';
-import AcquisitionOverview from '@/components/Flowbite/AcquistionOverview';
-import LatestTransactions from '@/components/Flowbite/LatestTransactions';
+import Layout from 'src/app/components/Layout';
+import SalesThisWeek from 'src/app/components/Flowbite/SalesThisWeek';
+import LatestCustomers from 'src/app/components/Flowbite/LatestCustomers';
+import AcquisitionOverview from 'src/app/components/Flowbite/AcquistionOverview';
+import LatestTransactions from 'src/app/components/Flowbite/LatestTransactions';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import ProtectedWrapper from '@/components/ProtectedWrapper';
+import ProtectedWrapper from 'src/app/components/ProtectedWrapper';
 
 export default function DashboardPage() {
   return (

@@ -3,10 +3,10 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 
-import LoadingDots from '@/components/ui/LoadingDots';
-import Logo from '@/components/icons/Logo';
+import LoadingDots from 'src/app/components/ui/LoadingDots';
+import Logo from 'src/app/components/icons/Logo';
 import { getURL } from '@/utils/helpers';
-import Layout from '@/components/Layout';
+import Layout from 'src/app/components/Layout';
 import { useUser } from '@/utils/hooks/useUser';
 import { useEffect } from 'react';
 

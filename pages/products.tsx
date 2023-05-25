@@ -1,9 +1,9 @@
-import Layout from '@/components/Layout';
+import Layout from 'src/app/components/Layout';
 import { GetServerSidePropsContext } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import ProtectedWrapper from '@/components/ProtectedWrapper';
-import ProductsTable from '@/components/Products/ProductsTable';
-import SourceProducts from '@/components/Products/SourceProducts';
+import ProtectedWrapper from 'src/app/components/ProtectedWrapper';
+import ProductsTable from 'src/app/components/Products/ProductsTable';
+import SourceProducts from 'src/app/components/Products/SourceProducts';
 import { parseStringPromise } from 'xml2js';
 
 export default function ProductsPage() {
