@@ -24,7 +24,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/app/components/*"],
+      "@/components/*": ["src/components/*"],
       "@/pages/*": ["_pages/*"],
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
