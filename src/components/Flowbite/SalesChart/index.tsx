@@ -1,3 +1,4 @@
+'use client';
 import { useTheme } from "flowbite-react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";

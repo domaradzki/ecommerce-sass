@@ -1,3 +1,5 @@
+'use client';
+
 import Datepicker from '@/components/Flowbite/DataPicker';
 import { Table } from 'flowbite-react';
 

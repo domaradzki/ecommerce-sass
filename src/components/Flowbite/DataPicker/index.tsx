@@ -1,4 +1,6 @@
-import { Dropdown } from "flowbite-react";
+'use client';
+
+import { Dropdown } from 'flowbite-react';
 
 export default function Datepicker(): JSX.Element {
   return (

@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';

@@ -10,6 +10,56 @@
   }
 }
 
+@layer base {
+  h2 {
+    @apply py-4 text-4xl font-black text-gray-600;
+  }
+
+  .button {
+    @apply custom-focus rounded-full border-2 border-gray-400 bg-white px-8 py-2 font-bold text-gray-400 hover:bg-gray-400 hover:text-white focus:bg-gray-400 focus:text-white;
+  }
+
+  .button-inverse {
+    @apply custom-focus rounded-full border-2 border-white bg-gray-600 px-8 py-2 font-bold text-white hover:border-gray-400 hover:bg-white hover:text-gray-400 focus:border-gray-400 focus:bg-white focus:text-gray-400;
+  }
+
+  .card {
+    @apply column m-2 w-[30rem] min-w-[20rem] items-center gap-8 rounded-2xl bg-white px-16 py-8 shadow-md dark:bg-gray-900 dark:text-gray-300 sm:min-w-[24rem] sm:px-10;
+  }
+
+  .column {
+    @apply flex flex-col items-start justify-center gap-4;
+  }
+
+  .custom-focus {
+    @apply focus:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+  }
+
+  .heading {
+    @apply text-lg font-semibold text-gray-700;
+  }
+
+  .highlight {
+    @apply ml-1 rounded-lg bg-gray-100 p-2 font-mono;
+  }
+
+  .error {
+    @apply w-full text-center text-red-600;
+  }
+
+  .input {
+    @apply custom-focus w-full rounded-xl border border-slate-300 focus:shadow-none;
+  }
+
+  .link {
+    @apply custom-focus rounded-md font-semibold text-gray-700;
+  }
+
+  .row {
+    @apply flex flex-row items-center justify-start gap-1;
+  }
+}
+
 *,
 *:before,
 *:after {

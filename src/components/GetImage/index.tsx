@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Database } from '@/types/database.types';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';

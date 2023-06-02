@@ -1,3 +1,5 @@
+'use client';
+
 import { Table, Badge } from 'flowbite-react';
 import Datepicker from '@/components/Flowbite/DataPicker';
 

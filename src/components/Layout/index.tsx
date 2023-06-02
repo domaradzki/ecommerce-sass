@@ -1,10 +1,11 @@
+'use client';
+
 import { Footer, Flowbite } from 'flowbite-react';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { FaDribbble, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MdFacebook } from 'react-icons/md';
 import Navbar from '@/components/TopBar/Navbar';
 import Sidebar from '@/components/Sidebar';
-import Meta from './meta';
 
 interface LayoutProps {
   isFooter?: boolean;
@@ -17,13 +18,11 @@ interface LayoutProps {
 }
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = function ({
-  meta,
   children,
   isFooter = true,
 }) {
   return (
     <>
-      <Meta {...meta} />
       <Navbar />
       <div className="flex items-start pt-16">
         <Sidebar />
@@ -38,10 +37,10 @@ const MainContent: FC<PropsWithChildren<LayoutProps>> = function ({
   isFooter,
 }) {
   return (
-    <main className="bg-gray-10 relative h-full w-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
+    <main className="bg-gray-10 relative mt-2 flex h-full w-full flex-col items-center overflow-y-auto dark:bg-gray-900 lg:ml-64">
       {children}
       {isFooter && (
-        <div className="mx-4 mt-4">
+        <div className="mt-4 w-full p-4 ">
           <MainContentFooter />
         </div>
       )}

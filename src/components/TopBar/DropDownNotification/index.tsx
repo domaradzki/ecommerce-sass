@@ -1,4 +1,6 @@
-import { Dropdown } from "flowbite-react";
+'use client';
+
+import { Dropdown } from 'flowbite-react';
 
 export default function DropDownNotification() {
   return (
@@ -62,7 +64,7 @@ export default function DropDownNotification() {
             </div>
             <div className="w-full pl-3">
               <div className="mb-1.5 text-sm text-gray-500 dark:text-gray-400">
-                New message from{" "}
+                New message from{' '}
                 <span className="font-semibold text-gray-900 dark:text-white">
                   Jese Leos
                 </span>
@@ -99,11 +101,11 @@ export default function DropDownNotification() {
               <div className="mb-1.5 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold text-gray-900 dark:text-white">
                   Joseph Mcfall
-                </span>{" "}
-                and{" "}
+                </span>{' '}
+                and{' '}
                 <span className="font-medium text-gray-900 dark:text-white">
                   5 others
-                </span>{" "}
+                </span>{' '}
                 started following you.
               </div>
               <div className="text-xs text-blue-600 dark:text-blue-500">
@@ -141,11 +143,11 @@ export default function DropDownNotification() {
               <div className="mb-1.5 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold text-gray-900 dark:text-white">
                   Bonnie Green
-                </span>{" "}
-                and{" "}
+                </span>{' '}
+                and{' '}
                 <span className="font-medium text-gray-900 dark:text-white">
                   141 others
-                </span>{" "}
+                </span>{' '}
                 love your story. See it and view more stories.
               </div>
               <div className="text-xs text-blue-600 dark:text-blue-500">
@@ -183,9 +185,9 @@ export default function DropDownNotification() {
               <div className="mb-1.5 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold text-gray-900 dark:text-white">
                   Leslie Livingston
-                </span>{" "}
-                mentioned you in a comment:{" "}
-                <span className="font-medium text-blue-500">@bonnie.green</span>{" "}
+                </span>{' '}
+                mentioned you in a comment:{' '}
+                <span className="font-medium text-blue-500">@bonnie.green</span>{' '}
                 what do you say?
               </div>
               <div className="text-xs text-blue-600 dark:text-blue-500">
@@ -219,7 +221,7 @@ export default function DropDownNotification() {
               <div className="mb-1.5 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold text-gray-900 dark:text-white">
                   Robert Brown
-                </span>{" "}
+                </span>{' '}
                 posted a new video: Glassmorphism - learn how to implement the
                 new design trend.
               </div>

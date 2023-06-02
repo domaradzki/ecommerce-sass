@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useCustomModal } from '@/components/CustomModal';
 import Popover from '@/components/shared/popover';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Dropdown } from 'flowbite-react';
 import { Badge } from 'flowbite-react';
 import toast from 'react-hot-toast';

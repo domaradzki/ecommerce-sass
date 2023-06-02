@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import { useUser } from '@supabase/auth-helpers-react';
 import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants';

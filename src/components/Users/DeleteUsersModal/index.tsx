@@ -1,7 +1,9 @@
-import { Button, Modal } from "flowbite-react";
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import { HiOutlineExclamationCircle, HiTrash } from "react-icons/hi";
+'use client';
+
+import { Button, Modal } from 'flowbite-react';
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
+import { HiOutlineExclamationCircle, HiTrash } from 'react-icons/hi';
 
 const DeleteUserModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
@@ -23,7 +25,7 @@ const DeleteUserModal: FC = function () {
           Delete user
         </div>
       </Button>
-      {typeof window !== "undefined" && (
+      {typeof window !== 'undefined' && (
         <Modal onClose={() => setOpen(false)} show={isOpen} size="md">
           <Modal.Header className="px-6 pt-6 pb-0">
             <span className="sr-only">Delete user</span>

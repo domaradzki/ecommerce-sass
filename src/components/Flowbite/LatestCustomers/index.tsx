@@ -1,3 +1,5 @@
+'use client';
+
 import Datepicker from '@/components/Flowbite/DataPicker';
 
 export default function LatestCustomers(): JSX.Element {

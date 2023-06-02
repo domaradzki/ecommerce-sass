@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Modal, TextInput } from 'flowbite-react';

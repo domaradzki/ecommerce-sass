@@ -1,3 +1,5 @@
+'use client';
+
 import { Dispatch, SetStateAction, ReactNode, useRef } from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import useWindowSize from '@/utils/hooks/use-window-size';
@@ -31,7 +33,7 @@ export default function Popover({
           <PopoverPrimitive.Content
             sideOffset={4}
             align={align}
-            className="animate-slide-up-fade z-20 items-center rounded-md border border-gray-200 bg-white drop-shadow-lg"
+            className="z-20 animate-slide-up-fade items-center rounded-md border border-gray-200 bg-white drop-shadow-lg"
           >
             {content}
           </PopoverPrimitive.Content>

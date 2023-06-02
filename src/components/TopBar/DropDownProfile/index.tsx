@@ -1,3 +1,5 @@
+'use client';
+
 import { Dropdown } from 'flowbite-react';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useEffect, useState } from 'react';

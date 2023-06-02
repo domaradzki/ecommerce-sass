@@ -1,6 +1,8 @@
+'use client';
+
 import Modal from '@/components/shared/modal';
 import Logo from '@/components/icons/Logo';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import { Auth } from '@supabase/auth-ui-react';

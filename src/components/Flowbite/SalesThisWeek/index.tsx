@@ -1,3 +1,5 @@
+'use client';
+
 import SalesChart from '@/components/Flowbite/SalesChart';
 import Datepicker from '@/components/Flowbite/DataPicker';
 

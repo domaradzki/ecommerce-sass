@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import toast from 'react-hot-toast';

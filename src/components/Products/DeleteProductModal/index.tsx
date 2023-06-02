@@ -1,7 +1,9 @@
-import { Button, Modal } from "flowbite-react";
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import { HiOutlineExclamationCircle, HiTrash } from "react-icons/hi";
+'use client';
+
+import { Button, Modal } from 'flowbite-react';
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
+import { HiOutlineExclamationCircle, HiTrash } from 'react-icons/hi';
 
 const DeleteProductModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
@@ -19,7 +21,7 @@ const DeleteProductModal: FC = function () {
       <Button color="failure" onClick={() => setOpen(!isOpen)}>
         <HiTrash className="mr-2 text-lg" />
       </Button>
-      {typeof window !== "undefined" && (
+      {typeof window !== 'undefined' && (
         <Modal onClose={() => setOpen(false)} show={isOpen} size="md">
           <Modal.Header className="px-3 pt-3 pb-0">
             <span className="sr-only">Kończenie aukcji</span>

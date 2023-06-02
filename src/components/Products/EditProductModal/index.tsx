@@ -1,8 +1,10 @@
-import { Button, Label, Modal, Textarea, TextInput } from "flowbite-react";
-import Image from "next/image";
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import { HiPencilAlt, HiTrash, HiUpload } from "react-icons/hi";
+'use client';
+
+import { Button, Label, Modal, Textarea, TextInput } from 'flowbite-react';
+import Image from 'next/image';
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
+import { HiPencilAlt, HiTrash, HiUpload } from 'react-icons/hi';
 
 const EditProductModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
@@ -20,7 +22,7 @@ const EditProductModal: FC = function () {
       <Button color="info" onClick={() => setOpen(!isOpen)}>
         <HiPencilAlt className="mr-2 text-lg" />
       </Button>
-      {typeof window !== "undefined" && (
+      {typeof window !== 'undefined' && (
         <Modal onClose={() => setOpen(false)} show={isOpen}>
           <Modal.Header className="border-b border-gray-200 !p-6 dark:border-gray-700">
             <strong>Edycja aukcji</strong>

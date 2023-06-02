@@ -1,7 +1,9 @@
-import { Checkbox, Table } from "flowbite-react";
-import type { FC } from "react";
-import DeleteProductModal from "../Products/DeleteProductModal";
-import EditProductModal from "../Products/EditProductModal";
+'use client';
+
+import { Checkbox, Table } from 'flowbite-react';
+import type { FC } from 'react';
+import DeleteProductModal from '@/components/Products/DeleteProductModal';
+import EditProductModal from '@/components/Products/EditProductModal';
 
 const AuctionsTable: FC = function () {
   return (

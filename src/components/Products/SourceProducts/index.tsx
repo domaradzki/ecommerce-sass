@@ -1,3 +1,5 @@
+'use client';
+
 import { Label } from 'flowbite-react';
 import { ChangeEvent, FC, useEffect } from 'react';
 import { useState } from 'react';
@@ -8,7 +10,7 @@ import { Database } from '@/types/database.types';
 import { useQuery } from 'react-query';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
-const SourceProducts: FC = async function () {
+const SourceProducts = function () {
   const supabase = useSupabaseClient<Database>();
   const [integration, setIntegration] = useState<Integrations['id'] | null>(
     null,
@@ -34,7 +36,6 @@ const SourceProducts: FC = async function () {
       enabled: !!user, // Only run the query if user is defined
     },
   );
-  console.log('int', data);
 
   // useEffect(() => {
   //   const wholeseler = data?.filter((item) => item.id === integration);
@@ -51,8 +52,7 @@ const SourceProducts: FC = async function () {
     return data;
   }
 
-  const products = await fetchData();
-  console.log(products);
+  const products = fetchData();
 
   return (
     <div>
