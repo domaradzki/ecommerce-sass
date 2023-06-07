@@ -1,14 +1,14 @@
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+// import { useRouter } from 'next/navigation';
+// import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import Logo from '@/components/icons/Logo';
 
 import s from './Navbar.module.css';
 
 const Navbar = () => {
-  const router = useRouter();
-  const supabaseClient = useSupabaseClient();
+  // const router = useRouter();
+  // const supabaseClient = useSupabaseClient();
 
   return (
     <nav className={s['root']}>

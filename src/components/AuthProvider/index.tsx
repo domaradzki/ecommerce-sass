@@ -4,6 +4,9 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import supabase from '@/utils/supabase-browser';
+import { Database } from '@/types/database.types';
+import { useQuery } from 'react-query';
+type Profiles = Database['public']['Tables']['profiles']['Row'];
 
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
@@ -24,6 +27,7 @@ interface AuthContextProps {
   session: any;
   user: any;
   view: string;
+  userDetails: Profiles | null;
   setView: React.Dispatch<React.SetStateAction<string>>;
   signOut: () => void;
 }
@@ -42,8 +46,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   const [session, setSession] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [view, setView] = useState<string>(VIEWS.SIGN_IN);
+  const [userDetails, setUserDetails] = useState<Profiles | null>(null);
   const router = useRouter();
   const { accessToken, ...rest } = props;
+
+  const getUserDetails = () =>
+    supabase.from('profiles').select('*').eq('id', user?.id).single();
+
+  const { data, isLoading } = useQuery(
+    ['userDetails', user?.id],
+    async () => getUserDetails(),
+    {
+      enabled: !!user,
+      staleTime: Infinity,
+    },
+  );
+
+  useEffect(() => {
+    if (user && !userDetails && !isLoading) {
+      setUserDetails(data?.data as Profiles);
+    } else if (!user) {
+      setUserDetails(null);
+    }
+  }, [user, isLoading]);
 
   useEffect(() => {
     async function getActiveSession() {
@@ -91,10 +116,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
       session,
       user,
       view,
+      userDetails,
       setView,
       signOut: () => supabase.auth.signOut(),
     };
-  }, [initial, session, user, view]);
+  }, [initial, session, userDetails, user, view]);
 
   return <AuthContext.Provider value={value} {...rest} />;
 };

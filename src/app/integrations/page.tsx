@@ -1,20 +1,16 @@
 'use client';
 
-import Layout from '@/components/Layout';
 import { Toaster } from 'react-hot-toast';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useQuery } from 'react-query';
-
-// import ProtectedWrapper from '@/components/ProtectedWrapper';
 import AddIntegrationModal from '@/components/Integrations/AddIntegrationModal';
-import { useUser } from '@/utils/hooks/useUser';
 import { Database } from '@/types/database.types';
 import CardIntegration from '@/components/Integrations/CardIntegration';
+import supabase from '@/utils/supabase-browser';
+import { useAuth } from '@/components/AuthProvider';
 
 export default function IntegrationsPage() {
-  const supabase = useSupabaseClient<Database>();
-
-  const { user } = useUser();
+  const { user } = useAuth();
 
   const { data, isLoading, isSuccess } = useQuery(
     'integrations',

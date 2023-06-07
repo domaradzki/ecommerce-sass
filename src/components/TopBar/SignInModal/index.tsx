@@ -2,7 +2,7 @@
 
 import Modal from '@/components/shared/modal';
 import Logo from '@/components/icons/Logo';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import { Auth } from '@supabase/auth-ui-react';
@@ -25,7 +25,7 @@ const SignInModal = ({
   showSignInModal: boolean;
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const user = useUser();
   const supabaseClient = useSupabaseClient();
 

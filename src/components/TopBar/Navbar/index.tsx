@@ -1,7 +1,6 @@
 'use client';
 
 import type { FC } from 'react';
-import { useUser } from '@supabase/auth-helpers-react';
 import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { DarkThemeToggle, Navbar } from 'flowbite-react';
@@ -9,9 +8,12 @@ import { useSignInModal } from '@/components/TopBar/SignInModal';
 import DropDownNotification from '@/components/TopBar/DropDownNotification';
 import DropDownApps from '@/components/TopBar/DropDownApps';
 import DropDownProfile from '@/components/TopBar/DropDownProfile';
+import { useAuth } from '@/components/AuthProvider';
+import { redirect } from 'next/navigation';
 
 const MainNavbar: FC = function () {
-  const user = useUser();
+  const { user, userDetails } = useAuth();
+
   const { SignInModal, setShowSignInModal } = useSignInModal();
   return (
     <Navbar fluid>
@@ -128,14 +130,17 @@ const MainNavbar: FC = function () {
                 {!user ? (
                   <motion.button
                     className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
-                    onClick={() => setShowSignInModal(true)}
+                    onClick={() => redirect('/')}
                     {...FADE_IN_ANIMATION_SETTINGS}
                   >
                     Zaloguj
                   </motion.button>
                 ) : (
                   // <UserDropdown />
-                  <DropDownProfile />
+                  <DropDownProfile
+                    userDetails={userDetails}
+                    email={user.email}
+                  />
                 )}
               </AnimatePresence>
             </div>

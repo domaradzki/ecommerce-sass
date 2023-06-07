@@ -29,11 +29,11 @@ export default async function RootLayout({
   return (
     <html lang="pl">
       <body suppressHydrationWarning={true}>
-        <AuthProvider accessToken={accessToken}>
-          <Providers>
+        <Providers>
+          <AuthProvider accessToken={accessToken}>
             <Layout>{children}</Layout>
-          </Providers>
-        </AuthProvider>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

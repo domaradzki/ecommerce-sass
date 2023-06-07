@@ -1,6 +1,6 @@
 'use client';
 
-import { Footer, Flowbite } from 'flowbite-react';
+import { Footer } from 'flowbite-react';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { FaDribbble, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MdFacebook } from 'react-icons/md';

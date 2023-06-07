@@ -1,22 +1,22 @@
 'use client';
 
 import { Dropdown } from 'flowbite-react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useEffect, useState } from 'react';
-import { useUser } from '@/utils/hooks/useUser';
 import { LayoutDashboard, LogOut } from 'lucide-react';
 import Link from 'next/link';
-// import Image from 'next/image';
+import supabase from '@/utils/supabase-browser';
 import { Database } from '@/types/database.types';
 import Image from 'next/image';
 import type { ImageLoaderProps } from 'next/image';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 
-export default function DropDownProfile() {
-  const supabase = useSupabaseClient<Database>();
-  const user = useUser();
-  const [username, setUsername] = useState<Profiles['username']>(null);
-  const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
+export default function DropDownProfile({
+  userDetails,
+  email,
+}: {
+  userDetails: Profiles | null;
+  email: string;
+}) {
   const [profilImage, setProfilImage] = useState<ImageLoaderProps['src']>('');
 
   useEffect(() => {
@@ -35,17 +35,8 @@ export default function DropDownProfile() {
       }
     }
 
-    if (avatar_url) downloadImage(avatar_url);
-  }, [avatar_url]);
-
-  useEffect(() => {
-    if (user.userDetails) {
-      setUsername(user.userDetails.full_name);
-      setAvatarUrl(user.userDetails.avatar_url);
-    }
-  }, [user, supabase]);
-
-  const email = user.user?.email;
+    if (userDetails?.avatar_url) downloadImage(userDetails.avatar_url);
+  }, [userDetails]);
 
   return (
     <Dropdown
@@ -60,12 +51,14 @@ export default function DropDownProfile() {
       trigger="click"
       label={
         <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-gray-300 transition-all duration-75 focus:outline-none active:scale-95 sm:h-7 sm:w-7">
-          <Image
-            alt={username || 'alt'}
-            src={profilImage}
-            width={40}
-            height={40}
-          />
+          {userDetails?.avatar_url && (
+            <Image
+              alt={userDetails?.username || 'alt'}
+              src={profilImage}
+              width={40}
+              height={40}
+            />
+          )}
         </span>
       }
     >
@@ -79,13 +72,13 @@ export default function DropDownProfile() {
             className="truncate py-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             role="none"
           >
-            {user && username}
+            {userDetails?.username}
           </p>
           <p
             className="truncate text-sm font-medium text-gray-900 dark:text-gray-300"
             role="none"
           >
-            {user && email}
+            {email}
           </p>
         </div>
         <ul className="pb- pt-1" role="none">
