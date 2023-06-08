@@ -1,10 +1,8 @@
 'use client';
 
 import { Toaster } from 'react-hot-toast';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useQuery } from 'react-query';
 import AddIntegrationModal from '@/components/Integrations/AddIntegrationModal';
-import { Database } from '@/types/database.types';
 import CardIntegration from '@/components/Integrations/CardIntegration';
 import supabase from '@/utils/supabase-browser';
 import { useAuth } from '@/components/AuthProvider';
@@ -29,7 +27,7 @@ export default function IntegrationsPage() {
       enabled: !!user, // Only run the query if user is defined
     },
   );
-
+  console.log(data);
   return (
     <>
       <div className="px-4 pt-6">
@@ -45,7 +43,7 @@ export default function IntegrationsPage() {
                 {isSuccess &&
                   data?.map((item) => (
                     <div
-                      key={item.id}
+                      key={item['id']}
                       className="rounde-xl flex w-full justify-center"
                     >
                       <CardIntegration item={item} />
