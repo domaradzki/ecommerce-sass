@@ -51,7 +51,7 @@ export default function DropDownProfile({
       trigger="click"
       label={
         <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-gray-300 transition-all duration-75 focus:outline-none active:scale-95 sm:h-7 sm:w-7">
-          {userDetails?.avatar_url && (
+          {profilImage && (
             <Image
               alt={userDetails?.username || 'alt'}
               src={profilImage}

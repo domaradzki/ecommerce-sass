@@ -6,13 +6,16 @@ import AddIntegrationModal from '@/components/Integrations/AddIntegrationModal';
 import CardIntegration from '@/components/Integrations/CardIntegration';
 import supabase from '@/utils/supabase-browser';
 import { useAuth } from '@/components/AuthProvider';
+import { Database } from '@/types/database.types';
+
+type Integrations = Database['public']['Tables']['integrations']['Row'];
 
 export default function IntegrationsPage() {
   const { user } = useAuth();
 
-  const { data, isLoading, isSuccess } = useQuery(
+  const { data, isLoading, isSuccess } = useQuery<Integrations[]>(
     'integrations',
-    async () => {
+    async (): Promise<any[]> => {
       const { data, error } = await supabase
         .from('integrations')
         .select('*')
@@ -37,6 +40,7 @@ export default function IntegrationsPage() {
               <h1 className="mb-5 text-2xl font-bold leading-none text-gray-900 dark:text-white sm:text-3xl">
                 Integrations
               </h1>
+              <AddIntegrationModal />
             </div>
             <div className="my-2 w-full shrink-0 divide-y">
               <div className="my-2 grid grid-cols-3 justify-items-center gap-4 text-center">
@@ -54,7 +58,6 @@ export default function IntegrationsPage() {
           </div>
         </div>
       </div>
-      <AddIntegrationModal />
       <Toaster />
     </>
   );
