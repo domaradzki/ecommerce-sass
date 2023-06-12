@@ -1,23 +1,19 @@
 'use client';
 
 import { Label } from 'flowbite-react';
-import { ChangeEvent, FC, useEffect } from 'react';
-import { useState } from 'react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-
-import { useUser } from '@/utils/hooks/useUser';
+import { ChangeEvent, FC, useEffect,useState } from 'react';
+import supabase  from '@/utils/supabase-browser'
 import { Database } from '@/types/database.types';
 import { useQuery } from 'react-query';
+import { useAuth } from '@/components/AuthProvider';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
 const SourceProducts = function () {
-  const supabase = useSupabaseClient<Database>();
   const [integration, setIntegration] = useState<Integrations['id'] | null>(
     null,
   );
-  // const [xmlFile, setXmlFile] = useState<Integrations['xml_full']>('');
   const [jsonData, setData] = useState([]);
-  const { user } = useUser();
+  const { user } = useAuth();
 
   const { data, isLoading, isSuccess } = useQuery(
     'integrations',
@@ -46,13 +42,13 @@ const SourceProducts = function () {
   //   setXmlFile(xml);
   // }, [data, integration]);
 
-  async function fetchData() {
-    const response = await fetch('http://localhost:3000/api/ikonka');
-    const data = await response.json();
-    return data;
-  }
+  // async function fetchData() {
+  //   const response = await fetch('http://localhost:3000/api/ikonka');
+  //   const data = await response.json();
+  //   return data;
+  // }
 
-  const products = fetchData();
+  // const products = fetchData();
 
   return (
     <div>

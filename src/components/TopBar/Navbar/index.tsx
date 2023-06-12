@@ -10,6 +10,7 @@ import DropDownApps from '@/components/TopBar/DropDownApps';
 import DropDownProfile from '@/components/TopBar/DropDownProfile';
 import { useAuth } from '@/components/AuthProvider';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 const MainNavbar: FC = function () {
   const { user, userDetails } = useAuth();
@@ -130,10 +131,12 @@ const MainNavbar: FC = function () {
                 {!user ? (
                   <motion.button
                     className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
-                    onClick={() => redirect('/')}
+                    // onClick={() => redirect('/')}
                     {...FADE_IN_ANIMATION_SETTINGS}
                   >
+                    <Link href='/'>
                     Zaloguj
+                    </Link>
                   </motion.button>
                 ) : (
                   // <UserDropdown />

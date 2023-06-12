@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import toast from 'react-hot-toast';
+import supabase  from '@/utils/supabase-browser'
 import { Database } from '@/types/database.types';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 
@@ -12,12 +13,11 @@ export default function Avatar({
   onUpload,
 }: {
   uid: string;
-  url: Profiles['avatar_url'];
+  url: Profiles['avatar_url'] | undefined;
   size: number;
   onUpload: (url: string) => void;
 }) {
-  const supabase = useSupabaseClient<Database>();
-  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
+  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url'] | null>(null);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Avatar({
     }
 
     if (url) downloadImage(url);
-  }, [url, supabase.storage]);
+  }, [url]);
 
   const uploadAvatar: React.ChangeEventHandler<HTMLInputElement> = async (
     event,
@@ -50,6 +50,9 @@ export default function Avatar({
       }
 
       const file = event.target.files[0];
+      if (!file) {
+        throw new Error('No file selected.');
+      }
       const fileExt = file?.name.split('.').pop();
       const fileName = `${uid}.${fileExt}`;
       const filePath = `${fileName}`;
@@ -61,10 +64,10 @@ export default function Avatar({
       if (uploadError) {
         throw uploadError;
       }
-
       onUpload(filePath);
+      toast.success('Profile updated!');
     } catch (error) {
-      alert('Error uploading avatar!');
+      toast.error('Error uploading avatar!');
       console.log(error);
     } finally {
       setUploading(false);

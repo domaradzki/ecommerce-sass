@@ -9,7 +9,6 @@ import {
   HiClipboard,
   HiCollection,
   HiInformationCircle,
-  HiLogin,
   HiPencil,
   HiSearch,
   HiShoppingBag,
