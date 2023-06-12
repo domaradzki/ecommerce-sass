@@ -1,10 +1,12 @@
-import { useSession } from '@supabase/auth-helpers-react';
+'use client'
+import { Toaster } from 'react-hot-toast';
 import LoadingDots from '@/components/ui/LoadingDots';
 import Account from '@/components/Account';
+import {useAuth} from '@/components/AuthProvider'
 
 export default function AccountPage() {
-  const session = useSession();
 
+const {session} = useAuth()
   return (
     <>
       {session ? (
@@ -14,6 +16,7 @@ export default function AccountPage() {
           <LoadingDots />
         </div>
       )}
+       <Toaster />
     </>
   );
 }

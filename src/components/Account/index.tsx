@@ -1,11 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  useUser,
-  useSupabaseClient,
-  Session,
-} from '@supabase/auth-helpers-react';
+import toast from 'react-hot-toast';
+import supabase  from '@/utils/supabase-browser'
 // import Avatar from './Avatar';
 
 import { Database } from '@/types/database.types';
@@ -13,14 +10,13 @@ import Avatar from '../TopBar/Avatar';
 import { Button, Label, TextInput } from 'flowbite-react';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 
-export default function Account({ session }: { session: Session }) {
-  const supabase = useSupabaseClient<Database>();
-  const user = useUser();
+export default function Account({ session }: { session: any }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<Profiles['username']>(null);
   const [full_name, setFullName] = useState<Profiles['full_name']>(null);
   const [website, setWebsite] = useState<Profiles['website']>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
+const user = session.user;
 
   useEffect(() => {
     async function getProfile() {
@@ -45,7 +41,7 @@ export default function Account({ session }: { session: Session }) {
           setAvatarUrl(data.avatar_url);
         }
       } catch (error) {
-        alert('Error loading user data!');
+        toast.error('Error loading user data!');
         console.log(error);
       } finally {
         setLoading(false);
@@ -81,9 +77,9 @@ export default function Account({ session }: { session: Session }) {
 
       let { error } = await supabase.from('profiles').upsert(updates);
       if (error) throw error;
-      alert('Profile updated!');
+      toast.success('Profile updated!');
     } catch (error) {
-      alert('Error updating the data!');
+      toast.error('Error updating the data!');
       console.log(error);
     } finally {
       setLoading(false);
