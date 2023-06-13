@@ -1,15 +1,20 @@
 'use client';
 
-import Link from 'next/link';
+import LoadingDots from '@/components/ui/LoadingDots';
+
 import { redirect } from 'next/navigation';
-import Auth from 'src/components/Auth';
-import { useAuth, VIEWS } from 'src/components/AuthProvider';
+import Auth from '@/components/Auth';
+import { useAuth, VIEWS } from '@/components/AuthProvider';
 
 export default function Home() {
-  const { initial, user, view, signOut } = useAuth();
+  const { initial, user, view } = useAuth();
 
   if (initial) {
-    return <div className="card h-72">Loading...</div>;
+    return (
+      <div className="card h-72">
+        <LoadingDots />
+      </div>
+    );
   }
 
   if (view === VIEWS.UPDATE_PASSWORD) {
@@ -18,18 +23,6 @@ export default function Home() {
 
   if (user) {
     redirect('/dashboard');
-    // return (
-    //   <div className="card">
-    //     <h2>Welcome!</h2>
-    //     <code className="highlight">{user.role}</code>
-    //     <Link className="button" href="/profile">
-    //       Go to Profile
-    //     </Link>
-    //     <button type="button" className="button-inverse" onClick={signOut}>
-    //       Sign Out
-    //     </button>
-    //   </div>
-    // );
   }
 
   return <Auth view={view} />;

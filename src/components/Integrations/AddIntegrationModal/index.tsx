@@ -3,11 +3,12 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
+import supabase from '@/utils/supabase-browser';
 import { User } from '@supabase/supabase-js';
 import { useState, ChangeEvent } from 'react';
-// import { useUser } from '@/utils/hooks/useUser';
 import { Database } from '@/types/database.types';
+import { useAuth } from '@/components/AuthProvider';
+
 import { useCustomModal } from '@/components/CustomModal';
 import CustomLogo from '@/components/CustomLogo';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
@@ -15,10 +16,8 @@ type Integrations = Database['public']['Tables']['integrations']['Row'];
 export default function AddIntegrationModal() {
   const { CustomModal, setShowCustomModal } = useCustomModal();
   const queryClient = useQueryClient();
-  const supabaseClient = useSupabaseClient();
-  const user = useUser();
+  const { user } = useAuth();
 
-  const [loading, setLoading] = useState(false);
   const [name, setName] = useState<Integrations['name']>('');
   const [login, setLogin] = useState<Integrations['login']>(null);
   const [password, setPassword] = useState<Integrations['password']>(null);
@@ -28,7 +27,7 @@ export default function AddIntegrationModal() {
   const [xmlFull, setXmlFull] = useState<Integrations['xml_full']>(null);
   const [xmlBase, setXmlBase] = useState<Integrations['xml_base']>(null);
 
-  const { mutate: addIntegrationMutation } = useMutation(
+  const { mutate: addIntegrationMutation, isLoading } = useMutation(
     async (payload: {
       name: Integrations['name'];
       login: Integrations['login'];
@@ -40,7 +39,7 @@ export default function AddIntegrationModal() {
       xmlBase: Integrations['xml_base'];
       user: User;
     }) => {
-      const { data, error } = await supabaseClient.from('integrations').insert([
+      const { data, error } = await supabase.from('integrations').insert([
         {
           name: payload.name,
           login: payload.login,
@@ -230,11 +229,11 @@ export default function AddIntegrationModal() {
             <div>
               <Button
                 onClick={hanleSubmitIntegration}
-                disabled={loading}
+                disabled={isLoading}
                 color="dark"
                 className="w-40 items-center justify-center rounded-md border border-gray-300 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
               >
-                {loading ? 'Loading ...' : 'Update'}
+                {isLoading ? 'Loading ...' : 'Update'}
               </Button>
             </div>
           </div>

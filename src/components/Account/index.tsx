@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import supabase  from '@/utils/supabase-browser'
+import supabase from '@/utils/supabase-browser';
 // import Avatar from './Avatar';
 
 import { Database } from '@/types/database.types';
@@ -16,7 +16,7 @@ export default function Account({ session }: { session: any }) {
   const [full_name, setFullName] = useState<Profiles['full_name']>(null);
   const [website, setWebsite] = useState<Profiles['website']>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null);
-const user = session.user;
+  const user = session.user;
 
   useEffect(() => {
     async function getProfile() {
@@ -155,7 +155,7 @@ const user = session.user;
 
       <div>
         <Button
-          className="w-40"
+          className="w-40 items-center justify-center rounded-md border border-gray-300 bg-gray-700 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
           onClick={() =>
             updateProfile({ username, full_name, website, avatar_url })
           }
@@ -165,7 +165,10 @@ const user = session.user;
         </Button>
       </div>
       <div>
-        <Button className="w-40" onClick={() => supabase.auth.signOut()}>
+        <Button
+          className="w-40 items-center justify-center rounded-md border border-gray-300 bg-gray-700 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
+          onClick={() => supabase.auth.signOut()}
+        >
           Sign Out
         </Button>
       </div>

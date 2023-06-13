@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { notFound, redirect } from 'next/navigation';
 import type { Database } from '@/types/database.types';
+// import supabaseServer from '@/utils/supabase-server';
 
 export default async function DashboardPage() {
   const supabase = createServerComponentClient<Database>({

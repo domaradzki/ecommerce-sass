@@ -9,7 +9,6 @@ import DropDownNotification from '@/components/TopBar/DropDownNotification';
 import DropDownApps from '@/components/TopBar/DropDownApps';
 import DropDownProfile from '@/components/TopBar/DropDownProfile';
 import { useAuth } from '@/components/AuthProvider';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 const MainNavbar: FC = function () {

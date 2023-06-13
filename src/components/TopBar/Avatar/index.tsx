@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import supabase  from '@/utils/supabase-browser'
+import supabase from '@/utils/supabase-browser';
 import { Database } from '@/types/database.types';
 type Profiles = Database['public']['Tables']['profiles']['Row'];
 
@@ -17,7 +17,9 @@ export default function Avatar({
   size: number;
   onUpload: (url: string) => void;
 }) {
-  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url'] | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url'] | null>(
+    null,
+  );
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -91,7 +93,7 @@ export default function Avatar({
       )}
       <div style={{ width: size }}>
         <label
-          className="group my-4 flex h-min  items-center justify-center rounded-lg border border-transparent bg-blue-700 p-0.5 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:z-10 focus:ring-4  focus:ring-blue-300 disabled:hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:disabled:hover:bg-blue-600"
+          className="group my-4 flex h-min  items-center justify-center rounded-lg border border-transparent bg-gray-700 p-0.5 px-3 py-2 text-center text-sm font-medium text-white hover:bg-gray-800 focus:z-10 focus:ring-4  focus:ring-gray-300 disabled:hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:disabled:hover:bg-gray-600"
           htmlFor="single"
         >
           {uploading ? 'Uploading ...' : 'Upload'}
@@ -106,7 +108,7 @@ export default function Avatar({
           accept="image/*"
           onChange={uploadAvatar}
           disabled={uploading}
-          className="bg-primary-700 w-40 items-center justify-center rounded-md border border-gray-300 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
+          className="w-40 items-center justify-center rounded-md border border-gray-300 bg-gray-700 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
         />
       </div>
     </div>

@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import supabase from '@/utils/supabase-browser';
 import { Database } from '@/types/database.types';
 type Integrations = Database['public']['Tables']['integrations']['Row'];
 
@@ -11,12 +12,13 @@ export default function CustomLogo({
   size,
   onUpload,
 }: {
-  url: Integrations['logo'];
+  url: Integrations['logo'] | undefined;
   size: number;
   onUpload: (url: string) => void;
 }) {
-  const supabase = useSupabaseClient<Database>();
-  const [logoUrl, setLogoUrl] = useState<Integrations['logo']>(null);
+  const [logoUrl, setLogoUrl] = useState<Integrations['logo'] | undefined>(
+    null,
+  );
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function CustomLogo({
     }
 
     if (url) downloadImage(url);
-  }, [url, supabase.storage]);
+  }, [url]);
 
   const uploadLogo: React.ChangeEventHandler<HTMLInputElement> = async (
     event,
@@ -49,6 +51,9 @@ export default function CustomLogo({
       }
       const uid = uuidv4();
       const file = event.target.files[0];
+      if (!file) {
+        throw new Error('No file selected.');
+      }
       const fileExt = file?.name.split('.').pop();
       const fileName = `${uid}.${fileExt}`;
       const filePath = `${fileName}`;
@@ -60,10 +65,10 @@ export default function CustomLogo({
       if (uploadError) {
         throw uploadError;
       }
-
       onUpload(filePath);
+      toast.success('Profile updated!');
     } catch (error) {
-      alert('Error uploading logo!');
+      toast.error('Error uploading avatar!');
       console.log(error);
     } finally {
       setUploading(false);

@@ -3,7 +3,7 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import supabase from '@/utils/supabase-browser';
 import { useState, ChangeEvent, useEffect, FC } from 'react';
 import { Database } from '@/types/database.types';
 import { useCustomModal } from '@/components/CustomModal';
@@ -19,7 +19,6 @@ export default function EditIntegrationModal({
 }) {
   const { CustomModal, setShowCustomModal } = useCustomModal();
   const queryClient = useQueryClient();
-  const supabase = useSupabaseClient();
   const [selectedItem, setSelectedItem] = useState<Integrations>(item);
 
   const handleUpdate = () => {
@@ -31,7 +30,7 @@ export default function EditIntegrationModal({
     setSelectedItem(item);
   }, [item]);
 
-  const { mutate: updateMutation } = useMutation(
+  const { mutate: updateMutation, isLoading } = useMutation(
     async (item: any) => {
       const { data, error } = await supabase
         .from('integrations')
@@ -233,12 +232,11 @@ export default function EditIntegrationModal({
             <div>
               <Button
                 onClick={handleUpdate}
-                // disabled={loading}
+                disabled={isLoading}
                 color="dark"
                 className="w-40 items-center justify-center rounded-md border border-gray-300 px-3 py-2 transition-all duration-75 hover:border-gray-800 focus:outline-none active:bg-gray-100"
               >
-                Update!!
-                {/* {loading ? 'Loading ...' : 'Update'} */}
+                {isLoading ? 'Loading ...' : 'Update'}
               </Button>
             </div>
           </div>
